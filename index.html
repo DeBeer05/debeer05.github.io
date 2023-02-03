@@ -10,6 +10,7 @@
       gapi.load("auth2", function() {
   gapi.auth2.init({
     client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
+    scope: "https://www.googleapis.com/auth/calendar"
   });
 });
 function MakeCalenderEvent(event) {
