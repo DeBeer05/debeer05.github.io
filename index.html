@@ -7,7 +7,7 @@
     <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
     <meta http-equiv="origin-trial" content="9AF8D9A4E502F3784AD24272D81F0381">
     <script>
-function createEvent(event) {
+function MakeCalenderEvent(event) {
   event.preventDefault();
   if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
     gapi.client.load("calendar", "v3").then(function() {
@@ -49,7 +49,7 @@ function createEvent(event) {
     <input type="datetime-local" id="startDate" name="startDate" required><br><br></input>
     <label for="endDate">End Date and Time:</label><br>
     <input type="datetime-local" id="endDate" name="endDate" required><br><br></input>
-    <button onclick="createEvent(event)">Create Event</button>
+    <button onclick="MakeCalenderEvent(event)">Create Event</button>
  
 
   </body>
