@@ -16,8 +16,7 @@
             console.log("Google API client library has been loaded");
           });
         });
-      }
-      gapi.auth2.getAuthInstance().signIn({
+        gapi.auth2.getAuthInstance().signIn({
   scope: 'https://www.googleapis.com/auth/calendar',
   prompt: 'select_account'
 }).then(function(user) {
@@ -25,6 +24,9 @@
     console.log(user.error);
   }
 });
+
+      
+
     </script>
     <script src="https://apis.google.com/js/api.js" onload="loadGoogleAPI()"></script>
     <script>
