@@ -2,62 +2,49 @@
 <html>
   <head>
     <title>Google Calendar Appointment</title>
-    <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/api.js"></script>
+
+    <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
+    
     <script>
-      function loadGoogleAPI() {
+      function MakeCalenderEvent(event) {
+        event.preventDefault();
         gapi.load("client:auth2", function() {
           gapi.auth2.init({
             client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
             scope: "https://www.googleapis.com/auth/calendar"
           }).then(function() {
-            console.log("Google API loaded");
-          }).catch(function(error) {
-            console.error("Error loading Google API:", error);
+            if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+              gapi.client.load("calendar", "v3").then(function() {
+                var event = {
+                  summary: document.getElementById("eventName").value,
+                  start: {
+                    dateTime: document.getElementById("startDate").value,
+                    timeZone: "Netherlands/Amsterdam"
+                  },
+                  end: {
+                    dateTime: document.getElementById("endDate").value,
+                    timeZone: "Netherlands/Amsterdam"
+                  }
+                };
+                var request = gapi.client.calendar.events.insert({
+                  calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
+                  resource: event
+                });
+                request.execute(function(event) {
+                  console.log("Event created: " + event.htmlLink);
+                });
+              }).catch(function(error) {
+                console.error(error);
+              });
+            } else {
+              gapi.auth2.getAuthInstance().signIn();
+            }
           });
         });
       }
-      </script>
-      <script src="https://apis.google.com/js/api.js"></script>
-      <script>
-      
-
-
-      function MakeCalenderEvent(event) {
-        console.log("The function is being called");
-        event.preventDefault();
-        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-          console.log("Working here");
-          gapi.client.load("calendar", "v3").then(function() {
-            console.log("Still working here");
-            var event = {
-              summary: document.getElementById("eventName").value,
-              start: {
-                dateTime: document.getElementById("startDate").value,
-                timeZone: "Netherlands/Amsterdam"
-              },
-              end: {
-                dateTime: document.getElementById("endDate").value,
-                timeZone: "Netherlands/Amsterdam"
-              }
-            };
-            var request = gapi.client.calendar.events.insert({
-              calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
-              resource: event
-            });
-            request.execute(function(event) {
-              console.log("Event created: " + event.htmlLink);
-            });
-          }).catch(function(error) {
-            console.log("I don't know what you're doing wrong but it works here");
-            console.error(error);
-          });
-        } else {
-          gapi.auth2.getAuthInstance().signIn();
-        }
-      }
-    
     </script>
+    
   </head>
   <body>
     
