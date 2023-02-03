@@ -6,54 +6,52 @@
     <script>
       gapi.load("client:auth2", function() {
         gapi.auth2.init({
-          client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
+          client_id: "875163929025-h8feigg4sjc3g9vdau10q973jb1k2n5q.apps.googleusercontent.com",
           scope: "https://www.googleapis.com/auth/calendar"
         });
       });
 
-      function createEvent() {
-        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-          gapi.client.load("calendar", "v3", function() {
-            var eventName = document.getElementById("eventName").value;
-            var startDate = document.getElementById("startDate").value;
-            var endDate = document.getElementById("endDate").value;
-            if (!eventName || !startDate || !endDate) {
-              alert("Please enter values for all fields");
-              return;
-            }
-            var event = {
-              summary: eventName,
-              start: {
-                dateTime: startDate,
-                timeZone: "Netherlands/Amsterdam"
-              },
-              end: {
-                dateTime: endDate,
-                timeZone: "Netherlands/Amsterdam"
-              }
-            };
-            var request = gapi.client.calendar.events.insert({
-              calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
-              resource: event
-            });
-            request.execute(function(event) {
-              console.log("Event created: " + event.htmlLink);
-            });
-          });
-        } else {
-          gapi.auth2.getAuthInstance().signIn();
-        }
-      }
-    </script>
-  </head>
-  <body>
-    <h1>Create Google Calendar Appointment</h1>
-    <label for="eventName">Event Name:</label><br>
-    <input type="text" id="eventName" name="eventName" required><br><br>
-    <label for="startDate">Start Date and Time:</label><br>
-    <input type="datetime-local" id="startDate" name="startDate" required><br><br>
-    <label for="endDate">End Date and Time:</label><br>
-    <input type="datetime-local" id="endDate" name="endDate" required><br><br>
-    <button onclick="createEvent()">Create Event</button>
-  </body>
+        function createEvent() {
+    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+      gapi.client.load("calendar", "v3").then(function() {
+        var event = {
+          summary: document.getElementById("eventName").value,
+          start: {
+            dateTime: document.getElementById("startDate").value,
+            timeZone: "Netherlands/Amsterdam"
+          },
+          end: {
+            dateTime: document.getElementById("endDate").value,
+            timeZone: "Netherlands/Amsterdam"
+          }
+        };
+        var request = gapi.client.calendar.events.insert({
+          calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
+          resource: event
+        });
+        request.execute(function(event) {
+          console.log("Event created: " + event.htmlLink);
+        });
+      }).catch(function(error) {
+        console.error(error);
+      });
+    } else {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+  }
+</script>
+
+</head>
+<body>
+  <h1>Create Google Calendar Appointment</h1>
+  <label for="eventName">Event Name:</label><br>
+  <input type="text" id="eventName" name="eventName" required><br><br>
+  <label for="startDate">Start Date and Time:</label><br>
+  <input type="datetime-local" id="startDate" name="startDate" required><br><br>
+  <label for="endDate">End Date and Time:</label><br>
+  <input type="datetime-local" id="endDate" name="endDate" required><br><br>
+  <button onclick="createEvent()">Create Event</button>
+</body>
 </html>
+
+
