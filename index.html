@@ -16,7 +16,9 @@
             scope: "https://www.googleapis.com/auth/calendar"
           }).then(function() {
             if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+              console.log("werkt hier");
               gapi.client.load("calendar", "v3").then(function() {
+                console.log("werkt hier nog");
                 var event = {
                   summary: document.getElementById("eventName").value,
                   start: {
@@ -29,6 +31,7 @@
                   }
                 };
                 var request = gapi.client.calendar.events.insert({
+                  
                   calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
                   resource: event
                 });
@@ -36,6 +39,7 @@
                   console.log("Event created: " + event.htmlLink);
                 });
               }).catch(function(error) {
+                console.log("ik weet niet wat je fout doet maar hier werkt ie");
                 console.error(error);
               });
             } else {
