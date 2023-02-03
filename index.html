@@ -5,10 +5,8 @@
     
     
     <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
-    
-    <script src="https://apis.google.com/js/api.js" onload="loadGoogleAPI()"></script>
     <script>
-      function loadGoogleAPI() {
+          function loadGoogleAPI() {
         gapi.load("client:auth2", function() {
           gapi.auth2.init({
             client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
@@ -18,6 +16,10 @@
           });
         });
       }
+    </script>
+    <script src="https://apis.google.com/js/api.js" onload="loadGoogleAPI()"></script>
+    <script>
+
       function MakeCalenderEvent(event) {
         console.log("The function is being called");
         event.preventDefault();
