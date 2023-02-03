@@ -39,15 +39,16 @@ function createEvent(event) {
 </script>
   </head>
   <body>
+    <form>
     <h1>Create Google Calendar Appointment</h1>
     <label for="eventName">Event Name:</label><br>
-    <input type="text" id="eventName" name="eventName" required><br><br>
+    <input type="text" id="eventName" name="eventName" required><br><br></input>
     <label for="startDate">Start Date and Time:</label><br>
-    <input type="datetime-local" id="startDate" name="startDate" required><br><br>
+    <input type="datetime-local" id="startDate" name="startDate" required><br><br></input>
     <label for="endDate">End Date and Time:</label><br>
-    <input type="datetime-local" id="endDate" name="endDate" required><br><br>
-    <button onclick="createEvent('click')">Create Event</button>
-
+    <input type="datetime-local" id="endDate" name="endDate" required><br><br></input>
+    <button onclick="createEvent(event)">Create Event</button>
+  </form>
 
   </body>
 </html>
