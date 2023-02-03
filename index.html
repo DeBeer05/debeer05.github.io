@@ -11,11 +11,20 @@
           gapi.auth2.init({
             client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
             scope: "https://www.googleapis.com/auth/calendar"
+        
           }).then(function() {
             console.log("Google API client library has been loaded");
           });
         });
       }
+      gapi.auth2.getAuthInstance().signIn({
+  scope: 'https://www.googleapis.com/auth/calendar',
+  prompt: 'select_account'
+}).then(function(user) {
+  if (user.error) {
+    console.log(user.error);
+  } 
+});
     </script>
     <script src="https://apis.google.com/js/api.js" onload="loadGoogleAPI()"></script>
     <script>
