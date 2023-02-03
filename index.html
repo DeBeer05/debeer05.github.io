@@ -5,42 +5,33 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
     <script>
- function createEvent(event) {
-  console.log("createEvent function called");
+function createEvent(event) {
   event.preventDefault();
-  if (event.type === 'click') {
-    
-  
-      if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-        gapi.client.load("calendar", "v3").then(function() {
-          var eventData = {
-            summary: document.getElementById("eventName").value,
-            start: {
-              dateTime: document.getElementById("startDate").value,
-              timeZone: "Netherlands/Amsterdam"
-            },
-            end: {
-              dateTime: document.getElementById("endDate").value,
-              timeZone: "Netherlands/Amsterdam"
-            }
-          };
-          var request = gapi.client.calendar.events.insert({
-            calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
-            resource: eventData
-          });
-          request.execute(function(event) {
-            console.log("Event created: " + event.htmlLink);
-          });
-        }).catch(function(error) {
-          console.error(error);
-        });
-      } else {
-        gapi.auth2.getAuthInstance().signIn();
-      }
-      document.getElementById("create-event-button").addEventListener("click", createEvent());
-    
-  } else if (event.type === 'keypress') {
-    
+  if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+    gapi.client.load("calendar", "v3").then(function() {
+      var event = {
+        summary: document.getElementById("eventName").value,
+        start: {
+          dateTime: document.getElementById("startDate").value,
+          timeZone: "Netherlands/Amsterdam"
+        },
+        end: {
+          dateTime: document.getElementById("endDate").value,
+          timeZone: "Netherlands/Amsterdam"
+        }
+      };
+      var request = gapi.client.calendar.events.insert({
+        calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
+        resource: event
+      });
+      request.execute(function(event) {
+        console.log("Event created: " + event.htmlLink);
+      });
+    }).catch(function(error) {
+      console.error(error);
+    });
+  } else {
+    gapi.auth2.getAuthInstance().signIn();
   }
 }
 
@@ -55,7 +46,8 @@
     <input type="datetime-local" id="startDate" name="startDate" required><br><br>
     <label for="endDate">End Date and Time:</label><br>
     <input type="datetime-local" id="endDate" name="endDate" required><br><br>
-    <button id="create-event-button" onclick="createEvent(event)">Create Event</button>
+    <button onclick="createEvent(new MouseEvent('click'))">Create Event</button>
+
 
   </body>
 </html>
