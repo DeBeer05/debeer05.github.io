@@ -5,8 +5,13 @@
     <script src="https://apis.google.com/js/api.js"></script>
 
     <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
-    
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <script>
+            function onSignIn(googleUser) {
+        // Get the user's ID token and basic profile information
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
       function MakeCalenderEvent(event) {
         event.preventDefault();
         gapi.load("client:auth2", function() {
