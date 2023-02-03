@@ -2,35 +2,21 @@
 <html>
   <head>
     <title>Google Calendar Appointment</title>
-    
-    
     <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
     <script>
-          function loadGoogleAPI() {
+      function loadGoogleAPI() {
         gapi.load("client:auth2", function() {
           gapi.auth2.init({
             client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
             scope: "https://www.googleapis.com/auth/calendar"
-        
           }).then(function() {
-            console.log("Google API client library has been loaded");
+            console.log("Google API loaded");
+          }).catch(function(error) {
+            console.error("Error loading Google API:", error);
           });
         });
-        gapi.auth2.getAuthInstance().signIn({
-  scope: 'https://www.googleapis.com/auth/calendar',
-  prompt: 'select_account'
-}).then(function(user) {
-  if (user.error) {
-    console.log(user.error);
-  }
-});
-          }
+      }
 
-      
-
-    </script>
-    <script src="https://apis.google.com/js/api.js" onload="loadGoogleAPI()"></script>
-    <script>
 
       function MakeCalenderEvent(event) {
         console.log("The function is being called");
