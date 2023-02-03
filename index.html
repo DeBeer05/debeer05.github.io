@@ -2,42 +2,38 @@
 <html>
   <head>
     <title>Google Calendar Appointment</title>
-    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
     <script>
-      gapi.load("client:auth2", function() {
-        gapi.auth2.init({
-          client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
-          scope: "https://www.googleapis.com/auth/calendar"
-        });
-      });
-
       function createEvent(e) {
         e.preventDefault();
-        gapi.auth2.getAuthInstance().signIn({
-          prompt: 'login'
-        }).then(function () {
-          gapi.client.load("calendar", "v3").then(function() {
-            var event = {
-              summary: document.getElementById("eventName").value,
-              start: {
-                dateTime: document.getElementById("startDate").value,
-                timeZone: "Netherlands/Amsterdam"
-              },
-              end: {
-                dateTime: document.getElementById("endDate").value,
-                timeZone: "Netherlands/Amsterdam"
-              }
-            };
-            var request = gapi.client.calendar.events.insert({
-              calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
-              resource: event
+        gapi.auth.signIn({
+          client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
+          scope: "https://www.googleapis.com/auth/calendar",
+          immediate: false
+        }, function(authResult) {
+          if (authResult && !authResult.error) {
+            gapi.client.load("calendar", "v3", function() {
+              var event = {
+                summary: document.getElementById("eventName").value,
+                start: {
+                  dateTime: document.getElementById("startDate").value,
+                  timeZone: "Netherlands/Amsterdam"
+                },
+                end: {
+                  dateTime: document.getElementById("endDate").value,
+                  timeZone: "Netherlands/Amsterdam"
+                }
+              };
+              var request = gapi.client.calendar.events.insert({
+                calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
+                resource: event
+              });
+              request.execute(function(event) {
+                console.log("Event created: " + event.htmlLink);
+              });
             });
-            request.execute(function(event) {
-              console.log("Event created: " + event.htmlLink);
-            });
-          }).catch(function(error) {
-            console.error(error);
-          });
+          }
         });
       }
     </script>
