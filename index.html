@@ -37,7 +37,7 @@
       } else {
         gapi.auth2.getAuthInstance().signIn();
       }
-      document.getElementById("create-event-button").addEventListener("click", createEvent);
+      document.getElementById("create-event-button").addEventListener("click", createEvent());
     
   } else if (event.type === 'keypress') {
     
