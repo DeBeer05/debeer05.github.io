@@ -6,7 +6,10 @@
     <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
     <script>
  function createEvent(event) {
-    if (event instanceof MouseEvent || event instanceof KeyboardEvent) {
+  event.preventDefault();
+  if (event.type === 'click') {
+    
+  
       if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
         gapi.client.load("calendar", "v3").then(function() {
           var eventData = {
@@ -33,8 +36,13 @@
       } else {
         gapi.auth2.getAuthInstance().signIn();
       }
-    }
+    
+  } else if (event.type === 'keypress') {
+    
   }
+}
+
+  
 </script>
   </head>
   <body>
