@@ -28,7 +28,7 @@
         gapi.auth2.getAuthInstance().signIn();
       }
 
-      function makeCalenderEvent(event) {
+      function MakeCalenderEvent(event) {
         event.preventDefault();
         gapi.client.load("calendar", "v3").then(function() {
           var event = {
