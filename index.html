@@ -7,7 +7,8 @@
     <meta name="google-signin-client_id" content="875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
-      function MakeCalendarEvent(event) {
+      function MakeCalenderEvent(event) {
+        console.log("de functie wordt aangeroepen");
         event.preventDefault();
         gapi.load("client:auth2", function() {
           gapi.auth2.init({
