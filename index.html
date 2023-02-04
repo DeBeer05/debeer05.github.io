@@ -3,6 +3,35 @@
   <head>
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
+      function handleSignInClick() {
+        gapi.auth2.getAuthInstance().signIn();
+      }
+      function handleSignOutClick() {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+      function createEvent() {
+        var event = {
+          'summary': document.getElementById("eventTitle").value,
+          'start': {
+            'dateTime': document.getElementById("eventTime").value,
+            'timeZone': 'America/Los_Angeles'
+          },
+          'end': {
+            'dateTime': document.getElementById("eventTime").value,
+            'timeZone': 'America/Los_Angeles'
+          }
+        };
+
+        var request = gapi.client.calendar.events.insert({
+          'calendarId': 'primary',
+          'resource': event
+        });
+
+        request.execute(function(event) {
+          document.getElementById("eventStatus").innerHTML = "Event created: " + event.htmlLink;
+        });
+      }
+
       (function() {
         // Your Client ID can be retrieved from your project in the Google
         // Developer Console, https://console.developers.google.com
@@ -11,71 +40,45 @@
         var apiKey = 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc';
 
         var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-
         var SCOPES = "https://www.googleapis.com/auth/calendar";
 
-        function handleClientLoad() {
-          gapi.load('client:auth2', initClient);
-        }
+gapi.load('client:auth2', function() {
+  gapi.client.init({
+    apiKey: apiKey,
+    clientId: CLIENT_ID,
+    discoveryDocs: DISCOVERY_DOCS,
+    scope: SCOPES
+  }).then(function () {
+    gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+    updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    document.getElementById("sign-in").onclick = handleSignInClick;
+    document.getElementById("sign-out").onclick = handleSignOutClick;
+    document.getElementById("createEvent").onclick = createEvent;
+  });
+});
 
-        function initClient() {
-          gapi.client.init({
-            apiKey: apiKey,
-            discoveryDocs: DISCOVERY_DOCS,
-            clientId: CLIENT_ID,
-            scope: SCOPES
-          }).then(function () {
-            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          });
-        }
-
-        function updateSigninStatus(isSignedIn) {
-          if (isSignedIn) {
-            createEvent();
-          }
-        }
-
-        function handleSignInClick(event) {
-          gapi.auth2.getAuthInstance().signIn();
-        }
-
-        function handleSignOutClick(event) {
-          gapi.auth2.getAuthInstance().signOut();
-        }
-
-        function createEvent() {
-          var event = {
-            'summary': document.getElementById("eventTitle").value,
-            'start': {
-              'dateTime': document.getElementById("eventTime").value,
-              'timeZone': 'America/Los_Angeles'
-            },
-            'end': {
-              'dateTime': document.getElementById("eventTime").value,
-              'timeZone': 'America/Los_Angeles'
-            }
-          };
-
-          var request = gapi.client.calendar.events.insert({
-            'calendarId': 'primary',
-            'resource': event
-          });
-
-          request.execute(function(event) {
-            document.getElementById("eventStatus").innerHTML = "Event created: " + event.htmlLink;
-          });
-        }
-      })();
-    </script>
-  </head>
-  <body>
-    <div>
-      <input type="text" id="eventTitle" placeholder="Event Title">
-      <input type="datetime-local" id="eventTime" placeholder="Event Time">
-      <button id="signin-button" onclick="handleSignInClick()">Sign In</button>
-      <button id="signout-button" onclick="handleSignOutClick()">Sign Out</button>
-    </div>
-    <div id="eventStatus"></div>
-  </body>
+function updateSigninStatus(isSignedIn) {
+  if (isSignedIn) {
+    document.getElementById("sign-in").style.display = "none";
+    document.getElementById("sign-out").style.display = "block";
+    document.getElementById("createEvent").style.display = "block";
+  } else {
+    document.getElementById("sign-in").style.display = "block";
+    document.getElementById("sign-out").style.display = "none";
+    document.getElementById("createEvent").style.display = "none";
+  }
+}
+})();
+</script>
+</head>
+<body>
+  <div class="g-signin2" id="sign-in" data-onsuccess="onSignIn"></div>
+  <button id="sign-out" style="display: none;">Sign out</button>
+  <br><br>
+  <input type="text" id="eventTitle" placeholder="Event title"></input>
+  <input type="text" id="eventTime" placeholder="Event time (YYYY-MM-DDTHH:MM:SS)"></input>
+  <button id="createEvent" style="display: none;">Create event</button>
+  <br><br>
+  <div id="eventStatus"></div>
+</body>
 </html>
