@@ -12,40 +12,37 @@
         var start = startDate + "T" + startTime + "+01:00";
         var end = endDate + "T" + endTime + "+01:00";
 
-        gapi.client.init({
-          'apiKey': 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc',
-          'clientId': '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
-          'scope': 'https://www.googleapis.com/auth/calendar',
-          'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
-        }).then(function() {
-          var event = {
-            'summary': title,
-            'location': 'Amsterdam',
-            'description': 'Event Description',
-            'start': {
-              'dateTime': start,
-              'timeZone': 'Europe/Amsterdam',
-            },
-            'end': {
-              'dateTime': end,
-              'timeZone': 'Europe/Amsterdam',
-            }
-          };
-
-          var request = gapi.client.calendar.events.insert({
-            'calendarId': 'primary',
-            'resource': event
+        gapi.load('auth2', function() {
+          gapi.auth2.init({
+            // apiKey: 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc',
+            client_id: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
+            scope: 'https://www.googleapis.com/auth/calendar'
           });
-
-          request.execute(function(event) {
-            console.log('Event created: ' + event.htmlLink);
+          gapi.auth2.getAuthInstance().signIn().then(function() {
+            gapi.client.load('calendar', 'v3', function() {
+              var request = gapi.client.calendar.events.insert({
+                calendarId: 'primary',
+                resource: {
+                  'summary': title,
+                  'location': 'Amsterdam',
+                  'description': 'Event Description',
+                  'start': {
+                    'dateTime': start,
+                    'timeZone': 'Europe/Amsterdam'
+                  },
+                  'end': {
+                    'dateTime': end,
+                    'timeZone': 'Europe/Amsterdam'
+                  }
+                }
+              });
+              request.execute(function(event) {
+                console.log('Event created: ' + event.htmlLink);
+              });
+            });
           });
         });
       }
-
-      gapi.load("client:auth2", function() {
-        gapi.auth2.init({client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com"});
-      });
     </script>
   </head>
   <body>
@@ -60,3 +57,4 @@
     <button onclick="createEvent()">Create Event</button>
   </body>
 </html>
+
