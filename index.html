@@ -12,32 +12,34 @@
         var start = startDate + "T" + startTime + "+01:00";
         var end = endDate + "T" + endTime + "+01:00";
 
-        gapi.load('auth2', function() {
-          gapi.auth2.init({
-            // apiKey: 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc',
-            client_id: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
+        gapi.load('client:auth2', function() {
+          gapi.client.init({
+            apiKey: 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc',
+            clientId: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
+            discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
             scope: 'https://www.googleapis.com/auth/calendar'
-          });
-          gapi.auth2.getAuthInstance().signIn().then(function() {
-            gapi.client.load('calendar', 'v3', function() {
-              var request = gapi.client.calendar.events.insert({
-                calendarId: 'primary',
-                resource: {
-                  'summary': title,
-                  'location': 'Amsterdam',
-                  'description': 'Event Description',
-                  'start': {
-                    'dateTime': start,
-                    'timeZone': 'Europe/Amsterdam'
-                  },
-                  'end': {
-                    'dateTime': end,
-                    'timeZone': 'Europe/Amsterdam'
+          }).then(function() {
+            gapi.auth2.getAuthInstance().signIn().then(function() {
+              gapi.client.load('calendar', 'v3', function() {
+                var request = gapi.client.calendar.events.insert({
+                  calendarId: 'primary',
+                  resource: {
+                    'summary': title,
+                    'location': 'Amsterdam',
+                    'description': 'Event Description',
+                    'start': {
+                      'dateTime': start,
+                      'timeZone': 'Europe/Amsterdam'
+                    },
+                    'end': {
+                      'dateTime': end,
+                      'timeZone': 'Europe/Amsterdam'
+                    }
                   }
-                }
-              });
-              request.execute(function(event) {
-                console.log('Event created: ' + event.htmlLink);
+                });
+                request.execute(function(event) {
+                  console.log('Event created: ' + event.htmlLink);
+                });
               });
             });
           });
