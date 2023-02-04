@@ -1,84 +1,62 @@
-<!DOCTYPE html>
 <html>
   <head>
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
-      function handleSignInClick() {
-        gapi.auth2.getAuthInstance().signIn();
-      }
-      function handleSignOutClick() {
-        gapi.auth2.getAuthInstance().signOut();
-      }
       function createEvent() {
-        var event = {
-          'summary': document.getElementById("eventTitle").value,
-          'start': {
-            'dateTime': document.getElementById("eventTime").value,
-            'timeZone': 'America/Los_Angeles'
-          },
-          'end': {
-            'dateTime': document.getElementById("eventTime").value,
-            'timeZone': 'America/Los_Angeles'
-          }
-        };
+        var title = document.getElementById("title").value;
+        var startDate = document.getElementById("start-date").value;
+        var startTime = document.getElementById("start-time").value;
+        var endDate = document.getElementById("end-date").value;
+        var endTime = document.getElementById("end-time").value;
 
-        var request = gapi.client.calendar.events.insert({
-          'calendarId': 'primary',
-          'resource': event
-        });
+        var start = startDate + "T" + startTime + "+01:00";
+        var end = endDate + "T" + endTime + "+01:00";
 
-        request.execute(function(event) {
-          document.getElementById("eventStatus").innerHTML = "Event created: " + event.htmlLink;
+        gapi.client.init({
+          'apiKey': 'YOUR_API_KEY',
+          'clientId': 'YOUR_CLIENT_ID',
+          'scope': 'https://www.googleapis.com/auth/calendar',
+          'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
+        }).then(function() {
+          var event = {
+            'summary': title,
+            'location': 'Amsterdam',
+            'description': 'Event Description',
+            'start': {
+              'dateTime': start,
+              'timeZone': 'Europe/Amsterdam',
+            },
+            'end': {
+              'dateTime': end,
+              'timeZone': 'Europe/Amsterdam',
+            }
+          };
+
+          var request = gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            'resource': event
+          });
+
+          request.execute(function(event) {
+            console.log('Event created: ' + event.htmlLink);
+          });
         });
       }
 
-      (function() {
-        // Your Client ID can be retrieved from your project in the Google
-        // Developer Console, https://console.developers.google.com
-        var CLIENT_ID = '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com';
-
-        var apiKey = 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc';
-
-        var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-        var SCOPES = "https://www.googleapis.com/auth/calendar";
-
-gapi.load('client:auth2', function() {
-  gapi.client.init({
-    apiKey: apiKey,
-    clientId: CLIENT_ID,
-    discoveryDocs: DISCOVERY_DOCS,
-    scope: SCOPES
-  }).then(function () {
-    gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-    updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-    document.getElementById("sign-in").onclick = handleSignInClick;
-    document.getElementById("sign-out").onclick = handleSignOutClick;
-    document.getElementById("createEvent").onclick = createEvent;
-  });
-});
-
-function updateSigninStatus(isSignedIn) {
-  if (isSignedIn) {
-    document.getElementById("sign-in").style.display = "none";
-    document.getElementById("sign-out").style.display = "block";
-    document.getElementById("createEvent").style.display = "block";
-  } else {
-    document.getElementById("sign-in").style.display = "block";
-    document.getElementById("sign-out").style.display = "none";
-    document.getElementById("createEvent").style.display = "none";
-  }
-}
-})();
-</script>
-</head>
-<body>
-  <div class="g-signin2" id="sign-in" data-onsuccess="onSignIn"></div>
-  <button id="sign-out" style="display: none;">Sign out</button>
-  <br><br>
-  <input type="text" id="eventTitle" placeholder="Event title"></input>
-  <input type="text" id="eventTime" placeholder="Event time (YYYY-MM-DDTHH:MM:SS)"></input>
-  <button id="createEvent" style="display: none;">Create event</button>
-  <br><br>
-  <div id="eventStatus"></div>
-</body>
+      gapi.load("client:auth2", function() {
+        gapi.auth2.init({client_id: "YOUR_CLIENT_ID"});
+      });
+    </script>
+  </head>
+  <body>
+    <input type="text" id="title" placeholder="Event title">
+    <br><br>
+    Start Date: <input type="date" id="start-date">
+    Start Time: <input type="time" id="start-time">
+    <br><br>
+    End Date: <input type="date" id="end-date">
+    End Time: <input type="time" id="end-time">
+    <br><br>
+    <button onclick="createEvent()">Create Event</button>
+  </body>
 </html>
