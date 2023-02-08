@@ -3,19 +3,24 @@
   <head>
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
-      // Load the API client library
-      gapi.load("client", start);
-
-      function start() {
-        gapi.client.init({
-          apiKey: "AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc",
-          discoveryDocs: [
-            "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
-          ],
-          clientId: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
+      // Load the API client library and sign in
+      gapi.load("client:auth2", function() {
+        gapi.auth2.init({
+          client_id: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
           scope: "https://www.googleapis.com/auth/calendar"
         });
-      }
+        gapi.auth2.getAuthInstance().signIn().then(function() {
+          var accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
+          gapi.client.init({
+            apiKey: accessToken,
+            discoveryDocs: [
+              "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+            ],
+            clientId: "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com",
+            scope: "https://www.googleapis.com/auth/calendar"
+          });
+        });
+      });
 
       function addEvent() {
         var event = {
@@ -34,7 +39,7 @@
 
         gapi.client.calendar.events
           .insert({
-            calendarId: "primary",
+            calendarId: "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com",
             resource: event
           })
           .then(function(response) {
