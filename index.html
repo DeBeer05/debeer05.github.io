@@ -1,63 +1,60 @@
+<!DOCTYPE html>
 <html>
   <head>
     <script src="https://apis.google.com/js/api.js"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-      function MakeCalenderEvent() {
-        var title = document.getElementById("title").value;
-        var startDate = document.getElementById("start-date").value;
-        var startTime = document.getElementById("start-time").value;
-        var endDate = document.getElementById("end-date").value;
-        var endTime = document.getElementById("end-time").value;
+      // Load the API client library
+      gapi.load("client", start);
 
-        var start = startDate + "T" + startTime + "+01:00";
-        var end = endDate + "T" + endTime + "+01:00";
-
-        gapi.load('client:auth2', function() {
-          gapi.client.init({
-            apiKey: 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc',
-            clientId: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
-            discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
-            scope: 'https://www.googleapis.com/auth/calendar'
-          }).then(function() {
-            gapi.auth2.getAuthInstance().signIn().then(function() {
-              gapi.client.load('calendar', 'v3', function() {
-                var request = gapi.client.calendar.events.insert({
-                  calendarId: 'primary',
-                  resource: {
-                    'summary': title,
-                    'location': 'Amsterdam',
-                    'description': 'Event Description',
-                    'start': {
-                      'dateTime': start,
-                      'timeZone': 'Europe/Amsterdam'
-                    },
-                    'end': {
-                      'dateTime': end,
-                      'timeZone': 'Europe/Amsterdam'
-                    }
-                  }
-                });
-                request.execute(function(event) {
-                  console.log('Event created: ' + event.htmlLink);
-                });
-              });
-            });
-          });
+      function start() {
+        gapi.client.init({
+          apiKey: "YOUR_API_KEY",
+          discoveryDocs: [
+            "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+          ],
+          clientId: "YOUR_CLIENT_ID",
+          scope: "https://www.googleapis.com/auth/calendar"
         });
+      }
+
+      function addEvent() {
+        var event = {
+          summary: document.getElementById("eventName").value,
+          location: document.getElementById("eventLocation").value,
+          description: document.getElementById("eventDescription").value,
+          start: {
+            dateTime: document.getElementById("eventStart").value,
+            timeZone: "America/Los_Angeles"
+          },
+          end: {
+            dateTime: document.getElementById("eventEnd").value,
+            timeZone: "America/Los_Angeles"
+          }
+        };
+
+        gapi.client.calendar.events
+          .insert({
+            calendarId: "primary",
+            resource: event
+          })
+          .then(function(response) {
+            console.log("Event created: " + response.data.htmlLink);
+          });
       }
     </script>
   </head>
   <body>
-    <input type="text" id="title" placeholder="Event title">
+    <h1>Add Event to Google Calendar</h1>
+    <input id="eventName" type="text" placeholder="Event Name">
     <br><br>
-    Start Date: <input type="date" id="start-date">
-    Start Time: <input type="time" id="start-time">
+    <input id="eventLocation" type="text" placeholder="Event Location">
     <br><br>
-    End Date: <input type="date" id="end-date">
-    End Time: <input type="time" id="end-time">
+    <input id="eventDescription" type="text" placeholder="Event Description">
     <br><br>
-    <button onclick="MakeCalenderEvent()">Create Event</button>
+    <input id="eventStart" type="datetime-local" placeholder="Event Start">
+    <br><br>
+    <input id="eventEnd" type="datetime-local" placeholder="Event End">
+    <br><br>
+    <button onclick="addEvent()">Add Event</button>
   </body>
 </html>
-
