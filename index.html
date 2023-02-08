@@ -1,24 +1,26 @@
 <button id="google-signin-button">Sign in with Google</button>
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js" async defer onload="onGoogleApiLoad()"></script>
 
 <script>
-  gapi.load('auth2', function() {
-    gapi.auth2.init({
-      client_id: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
-      scope: 'profile email'
-    }).then(function () {
-      gapi.signin2.render('google-signin-button', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
+  function onGoogleApiLoad() {
+    gapi.load('auth2', function() {
+      gapi.auth2.init({
+        client_id: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
+        scope: 'profile email'
+      }).then(function () {
+        gapi.signin2.render('google-signin-button', {
+          'scope': 'profile email',
+          'width': 240,
+          'height': 50,
+          'longtitle': true,
+          'theme': 'dark',
+          'onsuccess': onSuccess,
+          'onfailure': onFailure
+        });
       });
     });
-  });
+  }
 
   function onSuccess(googleUser) {
     console.log('Signed in as: ' + googleUser.getBasicProfile().getName());
