@@ -1,57 +1,86 @@
 <html>
   <head>
-    <script type="text/javascript">
-      function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-      }
-  
-      function initClient() {
-        gapi.client.init({
-          apiKey: 'APIAIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc_KEY',
-          clientId: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
-          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-          scope: 'https://www.googleapis.com/auth/calendar'
-        }).then(function () {
-          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          document.getElementById('authorize-button').onclick = handleAuthClick;
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    <script>
+      function gapiLoaded() {
+        gapi.load('client:auth2', function() {
+          gapi.client.init({
+            apiKey: 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc',
+            clientId: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
+            discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+            scope: 'https://www.googleapis.com/auth/calendar'
+          }).then(function() {
+            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+            updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          });
         });
       }
-  
-      function handleAuthClick() {
-        gapi.auth2.getAuthInstance().signIn();
+
+      function gisLoaded() {
+        gapi.load('signin2', function() {
+          gapi.signin2.render('signin-button', {
+            scope: 'https://www.googleapis.com/auth/calendar',
+            width: 200,
+            height: 50,
+            longtitle: true,
+            theme: 'dark',
+            onsuccess: onSignIn
+          });
+        });
       }
-  
-      function updateSigninStatus(isSignedIn) {
+
+      function updateSignInStatus(isSignedIn) {
         if (isSignedIn) {
-          makeApiCall();
+          gapi.client.calendar.calendarList.list().then(function(response) {
+            console.log(response);
+          });
         }
       }
-  
-      function makeApiCall() {
+
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId());
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+      }
+
+      function createEvent() {
+        var event = {
+          summary: document.getElementById("eventTitle").value,
+          location: document.getElementById("eventLocation").value,
+          start: {
+            dateTime: new Date(),
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+          },
+          end: {
+            dateTime: new Date(new Date().getTime() + (60 * 60 * 1000)),
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+          }
+        };
+
         gapi.client.calendar.events.insert({
           calendarId: 'primary',
-          resource: {
-            summary: 'Test Event',
-            location: 'Test Location',
-            description: 'This is a test event created using the Google Calendar API',
-            start: {
-              dateTime: new Date().toISOString(),
-              timeZone: 'America/Los_Angeles'
-            },
-            end: {
-              dateTime: new Date().toISOString(),
-              timeZone: 'America/Los_Angeles'
-            }
-          }
+          resource: event
         }).then(function(response) {
           console.log(response);
         });
       }
     </script>
-    <script async defer src="https://apis.google.com/js/api.js" onload="handleClientLoad()"></script>
   </head>
   <body>
-    <button id="authorize-button">Authorize</button>
+    <div id="signin-button"></div>
+    <div>
+      <form>
+        <label for="eventTitle">Event Title:</label>
+        <input type="text" id="eventTitle" name="eventTitle" required>
+        <br><br>
+        <label for="eventLocation">Event Location:</label>
+        <input type="text" id="eventLocation" name="eventLocation" required>
+        <br><br>
+        <button onclick="createEvent()">Create Event</button>
+      </form>
+    </div>
   </body>
 </html>
