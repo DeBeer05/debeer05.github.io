@@ -1,7 +1,6 @@
 <html>
   <head>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
     <script>
       function gapiLoaded() {
         gapi.load('client:auth2', function() {
@@ -13,19 +12,6 @@
           }).then(function() {
             gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
             updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          });
-        });
-      }
-
-      function gisLoaded() {
-        gapi.load('signin2', function() {
-          gapi.signin2.render('signin-button', {
-            scope: 'https://www.googleapis.com/auth/calendar',
-            width: 200,
-            height: 50,
-            longtitle: true,
-            theme: 'dark',
-            onsuccess: onSignIn
           });
         });
       }
@@ -70,17 +56,11 @@
     </script>
   </head>
   <body>
-    <div id="signin-button"></div>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <div>
-      <form>
-        <label for="eventTitle">Event Title:</label>
-        <input type="text" id="eventTitle" name="eventTitle" required>
-        <br><br>
-        <label for="eventLocation">Event Location:</label>
-        <input type="text" id="eventLocation" name="eventLocation" required>
-        <br><br>
-        <button onclick="createEvent()">Create Event</button>
-      </form>
+      <input type="text" id="eventTitle" placeholder="Event Title">
+      <input type="text" id="eventLocation" placeholder="Event Location">
+      <button onclick="createEvent()">Create Event</button>
     </div>
   </body>
 </html>
