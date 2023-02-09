@@ -6,55 +6,73 @@
   <body>
     <h1>Save Event to Google Calendar</h1>
     <input type="text" id="eventTitle" placeholder="Event Title">
-    <button id="saveEventButton">Save Event</button>
+    <button id="signInButton">Sign In</button>
+    <button id="saveEventButton" style="display:none;">Save Event</button>
     <script>
-      // Your API key
-      const API_KEY = '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com';
-
+    // Your API key
+    const API_KEY = 'AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc';
       // Calendar ID
-      const CALENDAR_ID = 'he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com';
+  const CALENDAR_ID = 'he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com';
 
-      // Get the event title input
-      const eventTitleInput = document.getElementById('eventTitle');
+// Get the event title input
+const eventTitleInput = document.getElementById('eventTitle');
 
-      // Get the save event button
-      const saveEventButton = document.getElementById('saveEventButton');
+// Get the sign in button
+const signInButton = document.getElementById('signInButton');
 
-      // Add an event listener to the save event button
-      saveEventButton.addEventListener('click', function() {
-        // Event details
-        const event = {
-          summary: eventTitleInput.value,
-          description: 'Event Description',
-          start: {
-            dateTime: '2023-02-10T09:00:00-07:00',
-            timeZone: 'America/Los_Angeles',
-          },
-          end: {
-            dateTime: '2023-02-10T17:00:00-07:00',
-            timeZone: 'America/Los_Angeles',
-          },
-        };
+// Get the save event button
+const saveEventButton = document.getElementById('saveEventButton');
 
-        // Load the API client library
-        gapi.load('client', function() {
-          gapi.client.init({
-            apiKey: API_KEY,
-            discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-          }).then(function() {
-            // Insert the event
-            gapi.client.calendar.events.insert({
-              calendarId: CALENDAR_ID,
-              resource: event,
-            }).then(function(response) {
-              console.log('Event created: ', response.result.htmlLink);
-            }, function(error) {
-              console.error('Error creating event: ', error);
-            });
-          });
-        });
+// Add an event listener to the sign in button
+signInButton.addEventListener('click', function() {
+  gapi.load('auth2', function() {
+    gapi.auth2.init({
+      client_id: '875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com',
+      scope: 'https://www.googleapis.com/auth/calendar',
+    }).then(function() {
+      // Sign in the user
+      gapi.auth2.getAuthInstance().signIn().then(function() {
+        // Show the save event button
+        saveEventButton.style.display = 'inline-block';
       });
-    </script>
-    <script src="https://apis.google.com/js/api.js"></script>
-  </body>
-</html>
+    });
+  });
+});
+
+// Add an event listener to the save event button
+saveEventButton.addEventListener('click', function() {
+  // Event details
+  const event = {
+    summary: eventTitleInput.value,
+    description: 'Event Description',
+    start: {
+      dateTime: '2023-02-10T09:00:00-07:00',
+      timeZone: 'America/Los_Angeles',
+    },
+    end: {
+      dateTime: '2023-02-10T17:00:00-07:00',
+      timeZone: 'America/Los_Angeles',
+    },
+  };
+
+  // Load the API client library
+  gapi.load('client', function() {
+    gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+    }).then(function() {
+      // Insert the event
+      gapi.client.calendar.events.insert({
+        calendarId: CALENDAR_ID,
+        resource: event,
+      }).then(function(response) {
+        console.log('Event created: ', response.result.htmlLink);
+      }, function(error) {
+        console.error('Error creating event: ', error);
+      });
+    });
+  });
+});
+</script>
+<script src="https://apis.google.com/js/api.js"></script>
+
