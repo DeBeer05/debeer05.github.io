@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>Create Event in Google Calendar</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+      // Replace with your client ID from the developer console.
+      var clientId = "875163929025-30af1oejvkrjicskbdikm8kkep56s153.apps.googleusercontent.com";
+      
+      // Replace with your API Key from the developer console.
+      var apiKey = "AIzaSyBGbQjVOJ-2gj5-OopuiOpyYqN80BCT4qc";
+      
+      // Replace with your Calendar ID from Google Calendar.
+      var calendarId = "he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com";
+      
+      // Your application needs to load the Google Calendar API to work.
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+      
+      function initClient() {
+        gapi.client.init({
+          apiKey: apiKey,
+          clientId: clientId,
+          discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+          scope: "https://www.googleapis.com/auth/calendar"
+        }).then(function () {
+          // Listen for click events on the "Create Event" button.
+          document.getElementById('create-event-button').addEventListener('click', createEvent);
+        });
+      }
+      
+      function createEvent() {
+        var title = document.getElementById('title').value;
+        var location = document.getElementById('location').value;
+        var date = document.getElementById('date').value;
+        
+        var start = new Date(date);
+        var end = new Date(date);
+        end.setHours(start.getHours() + 1);
+        
+        var event = {
+          'summary': title,
+          'location': location,
+          'description': '',
+          'start': {
+            'dateTime': start.toISOString(),
+            'timeZone': 'America/Los_Angeles',
+          },
+          'end': {
+            'dateTime': end.toISOString(),
+            'timeZone': 'America/Los_Angeles',
+          },
+          'reminders': {
+            'useDefault': true,
+          },
+        };
+        
+        var request = gapi.client.calendar.events.insert({
+          'calendarId': calendarId,
+          'resource': event
+        });
+        
+        request.execute(function(event) {
+          console.log('Event created: ' + event.htmlLink);
+        });
+      }
+    </script>
+  </head>
+  <body onload="handleClientLoad()">
+    <h1>Create Event in Google Calendar</h1>
+    <input type="text" id="title" placeholder="Event Title">
+    <input type="text" id="location" placeholder="Event Location">
+    <input type="text" id="date" placeholder="Event Date (YYYY-MM-DD)">
+    <button id="create-event-button">Create Event</button>
+  </body>
+</html>
