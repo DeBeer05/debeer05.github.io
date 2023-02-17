@@ -1,0 +1,61 @@
+/* Style for the container */
+.container {
+  margin: 0 auto;
+  max-width: 1080px;
+}
+
+/* Style for weekdays */
+.weekday {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the table */
+table {
+  width: 100%;
+}
+
+/* Style for table headings */
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Style for table rows */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Style for item name */
+.item-name {
+  width: 70%;
+}
+
+/* Style for quantity */
+.quantity {
+  width: 30%;
+}
+
+/* Media query for phones */
+@media (max-width: 767px) {
+  /* Display two columns on phones */
+  .weekday {
+      width: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      padding: 5px;
+  }
+}
+
+/* Media query for 1080p monitors */
+@media (min-width: 1080px) {
+  /* Display three columns on 1080p monitors */
+  .weekday {
+      width: 33.33%;
+      display: inline-block;
+      box-sizing: border-box;
+      padding: 5px;
+  }
+}
