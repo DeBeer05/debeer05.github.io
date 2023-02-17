@@ -37,7 +37,7 @@ if(isset($_POST['submit'])){
         $db_date = $date; 
         $db_time_from = $time_from; 
         $db_time_to = $time_to; 
-        $insert = $stmt->execute(); 
+        $insert = ''; 
          
         if($insert){ 
             $event_id = $stmt->insert_id; 

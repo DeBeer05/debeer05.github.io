@@ -53,8 +53,8 @@ if(isset($_GET['code'])){
                     // Get the user's calendar timezone 
                     $user_timezone = $GoogleCalendarApi->GetUserCalendarTimezone($access_token); 
                  
-                    // Create an event on the primary calendar 
-                    $google_event_id = $GoogleCalendarApi->CreateCalendarEvent($access_token, 'primary', $calendar_event, 0, $event_datetime, $user_timezone); 
+                    // Create an event on the familie romijn calendar 
+                    $google_event_id = $GoogleCalendarApi->CreateCalendarEvent($access_token, 'he2cnbmqjtku6paaqokqa765u4@group.calendar.google.com', $calendar_event, 0, $event_datetime, $user_timezone); 
                      
                     //echo json_encode([ 'event_id' => $event_id ]); 
                      
@@ -90,8 +90,13 @@ if(isset($_GET['code'])){
     } 
      
     $_SESSION['status_response'] = array('status' => $status, 'status_msg' => $statusMsg); 
+    sleep(5);
+    $status = '';
+    $statusMsg = '';
+    $_SESSION['status_response'] = array('status' => $status, 'status_msg' => $statusMsg); 
      
     header("Location: index.php"); 
     exit(); 
 } 
 ?>
+
