@@ -49,5 +49,29 @@
             "repo": "https://github.com/DeBeer05/DeBeer05.github.io",
             "demo": "https://DeBeer05.github.io"
         }
+    },
+    {
+        "slug": "EARSdesign",
+        "title": "earsdesign",
+        "description": "Eerste applicatie die ik oot gemaakt heb.",
+        "longDescription": "Een website voor mijn moeder om haar sieraden op te verkopen.",
+        "tags": [
+            "JavaScript",
+            "HTML",
+            "CSS"
+        ],
+        "learnings": [
+            "Hoe zet je een flask project op",
+            "Database koppeling maken",
+            "dynamisch data laten zien vanuit een MySQL database"
+        ],
+        "stack": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
+        "links": {
+            "repo": "https://github.com/DeBeer05/earsdesign"
+        }
     }
 ]

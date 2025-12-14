@@ -5,97 +5,147 @@ const I18N = {
         tagline: "Software Development • HvA",
         ctaContact: "Contact",
         ctaCV: "Download CV",
+
         pill: "Open voor stage / projecten",
         heroHi: "Hi, ik ben",
-        heroLead: "HBO Software Development (Associate degree) aan de Hogeschool van Amsterdam. Ik bouw graag slimme, praktische oplossingen met Python en webtechnologie.",
+        heroLead:
+            "Ik studeer Software Development aan de Hogeschool van Amsterdam en ik word echt blij van bouwen aan dingen die je meteen kunt gebruiken. Of het nou een webapp, API of slim script is — ik duik erin tot het strak werkt.",
+
         ctaProjects: "Bekijk projecten",
         ctaCopyEmail: "Kopieer e-mail",
+
         statYears: "jaar ervaring (±)",
         statFocus: "focus",
         statLang: "taal",
+
         quickTitle: "Snelkoppelingen",
         navAbout: "Over mij",
         navSkills: "Skills",
         navExperience: "Opleiding & Ervaring",
         navProjects: "Projecten",
+
         nowTitle: "Nu",
-        nowText: "Student Software Development (HvA) — bouwend aan projecten en portfolio.",
+        nowText:
+            "Ik ben nu vooral bezig met projecten bouwen, skills aanscherpen en deze portfolio steeds beter maken.",
+
         aboutTitle: "Over mij",
-        aboutBody: "Ik werk al lang met computers en vind het leuk om praktische oplossingen te bouwen. Ik ben leergierig, plan mijn werk graag strak, en werk fijn in een team waar feedback normaal is.",
+        aboutBody:
+            "Ik ben al sinds jongs af aan bezig met computers en techniek. Wat ik het leukste vind is een idee stap voor stap omzetten in iets dat echt werkt. Ik stel graag vragen, leer snel bij en vind het top om samen te bouwen aan iets waar je trots op kunt zijn.",
+
         aboutEdu: "Opleiding",
         aboutRole: "Richting",
         aboutRoleValue: "Software Development",
         aboutLocation: "Locatie",
+
         linksTitle: "Links",
-        linksHint: "Voeg GitHub toe zodra je repo’s publiek staan.",
+        linksHint: "Hier vind je m’n profiel (en repo’s als ze online staan).",
+
         skillsTitle: "Skills",
-        skillsSub: "Selecteer een categorie om te filteren.",
+        skillsSub:
+            "Klik op een categorie om te filteren — zo zie je snel waar ik het meest mee werk.",
+
         eduTitle: "Opleiding",
-        eduSub: "Mijn opleidingen en certificering.",
+        eduSub: "Een kort overzicht van waar ik vandaan kom (en waar ik naartoe groei).",
+
         workTitle: "Ervaring",
-        workSub: "Werkervaring en stages.",
+        workSub: "Werkervaring en stages waar ik veel van heb meegenomen.",
+
         projectsTitle: "Projecten",
-        projectsSub: "Projecten worden geladen uit data/projects.json.",
+        projectsSub:
+            "Dit zijn projecten waar ik energie van krijg — klik vooral door naar de details.",
+
         contactTitle: "Contact",
-        contactBody: "Stuur me een bericht via e-mail of LinkedIn. (GitHub Pages is statisch, dus geen “echte” backend form.)",
+        contactBody:
+            "Lijkt het je leuk om even te sparren of samen te werken? Stuur me gerust een bericht via e-mail of LinkedIn. (Deze site draait op GitHub Pages, dus geen ‘echte’ backend-form.)",
+
         contactEmail: "Mail",
-        contactHint: "Wil je een formulier? Gebruik Formspree / Getform.",
+        contactHint:
+            "Wil je liever een contactformulier? Dat kan ook prima via Formspree / Getform.",
+
         footerTitle: "Portfolio",
-        footerBody: "Gemaakt voor GitHub Pages — snel, simpel, uitbreidbaar.",
+        footerBody:
+            "Gemaakt voor GitHub Pages — snel, simpel, en makkelijk uit te breiden.",
+
         githubTitle: "Featured GitHub",
-        githubSub: "Laatste projecten en activiteit (automatisch geladen).",
+        githubSub:
+            "Een paar repo’s die ik graag laat zien — automatisch geladen vanaf GitHub.",
+
         detailStack: "Tech stack",
-        detailLearn: "Wat ik heb geleerd",
+        detailLearn: "Wat ik hier heb geleerd",
         detailLinks: "Links"
     },
+
     en: {
         tagline: "Software Development • AUAS",
         ctaContact: "Contact",
         ctaCV: "Download CV",
+
         pill: "Open to internships / projects",
         heroHi: "Hi, I'm",
-        heroLead: "Software Development (Associate degree) at AUAS. I like building practical solutions with Python and web tech.",
+        heroLead:
+            "I study Software Development at AUAS, and I genuinely enjoy building things people can actually use. Whether it’s a web app, an API, or a small automation — I like polishing it until it feels solid.",
+
         ctaProjects: "See projects",
         ctaCopyEmail: "Copy email",
+
         statYears: "years experience (approx.)",
         statFocus: "focus",
         statLang: "language",
+
         quickTitle: "Quick links",
         navAbout: "About",
         navSkills: "Skills",
         navExperience: "Education & Experience",
         navProjects: "Projects",
+
         nowTitle: "Now",
-        nowText: "Software Development student — building projects and this portfolio.",
+        nowText:
+            "Right now I’m focused on building projects, sharpening my skills, and improving this portfolio.",
+
         aboutTitle: "About",
-        aboutBody: "I've been into computers for a long time and enjoy building practical solutions. I'm curious, I plan my work well, and I like team environments where feedback is normal.",
+        aboutBody:
+            "I’ve been into computers and tech for as long as I can remember. What I enjoy most is turning an idea into something that actually works. I learn fast, ask questions, and I like working with others to build something we can be proud of.",
+
         aboutEdu: "Education",
         aboutRole: "Direction",
         aboutRoleValue: "Software Development",
         aboutLocation: "Location",
+
         linksTitle: "Links",
-        linksHint: "Add GitHub once your repos are public.",
+        linksHint: "You’ll find my profiles here (and repos once they’re public).",
+
         skillsTitle: "Skills",
-        skillsSub: "Select a category to filter.",
+        skillsSub: "Pick a category to filter — easy to scan what I use most.",
+
         eduTitle: "Education",
-        eduSub: "My education and certifications.",
+        eduSub: "A quick overview of my background and where I’m heading.",
+
         workTitle: "Experience",
-        workSub: "Work experience and internships.",
+        workSub: "Work and internships I learned a lot from.",
+
         projectsTitle: "Projects",
-        projectsSub: "Projects are loaded from data/projects.json.",
+        projectsSub: "Projects I enjoyed building — click through for details.",
+
         contactTitle: "Contact",
-        contactBody: "Reach out via email or LinkedIn. (GitHub Pages is static, so no real backend form.)",
+        contactBody:
+            "Want to chat or collaborate? Feel free to reach out via email or LinkedIn. (This site runs on GitHub Pages, so there’s no real backend form.)",
+
         contactEmail: "Email",
-        contactHint: "Want a form anyway? Use Formspree / Getform.",
+        contactHint:
+            "Prefer a contact form? Formspree / Getform works great with GitHub Pages.",
+
         footerTitle: "Portfolio",
-        footerBody: "Built for GitHub Pages — fast, simple, extensible.",
+        footerBody: "Built for GitHub Pages — fast, simple, and easy to extend.",
+
         githubTitle: "Featured GitHub",
-        githubSub: "Latest work and activity (auto-loaded).",
+        githubSub: "A few repos I like to highlight — loaded automatically from GitHub.",
+
         detailStack: "Tech stack",
         detailLearn: "What I learned",
         detailLinks: "Links"
     }
 };
+
 
 function setTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
