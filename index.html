@@ -54,9 +54,14 @@
 
                 <div class="hero-actions">
                     <a class="btn" href="#projects" data-i18n="ctaProjects">Bekijk projecten</a>
+                    <a class="btn ghost" id="cvBtn" href="assets/CV_Berend_Romijn.pdf" target="_blank" rel="noreferrer"
+                        data-i18n="ctaCV">
+                        Download CV
+                    </a>
                     <button class="btn ghost" id="copyEmailBtn" type="button" data-i18n="ctaCopyEmail">Kopieer
                         e-mail</button>
                 </div>
+
 
                 <div class="stats" aria-label="Highlights">
                     <div class="stat">
@@ -140,6 +145,17 @@
                 <div class="chips" id="skillsChips"></div>
             </div>
         </section>
+        <!-- GITHUB -->
+        <section class="grid" id="github">
+            <div class="card span-12">
+                <div class="section-head">
+                    <h2 data-i18n="githubTitle">Featured GitHub</h2>
+                    <p class="muted" data-i18n="githubSub">Laatste projecten en activiteit (automatisch geladen).</p>
+                </div>
+                <div class="projects" id="githubGrid"></div>
+            </div>
+        </section>
+
 
         <!-- EDUCATION + EXPERIENCE -->
         <section class="grid" id="experience">
@@ -175,6 +191,15 @@
                 <div class="projects" id="projectsGrid"></div>
             </div>
         </section>
+        <!-- PROJECT DETAIL VIEW (hash route) -->
+        <section class="grid" id="projectDetail" style="display:none;">
+            <div class="card span-12">
+                <a class="chip" href="#projects" id="backToProjects" style="text-decoration:none;">← Back</a>
+                <div class="divider"></div>
+                <div id="projectDetailContent"></div>
+            </div>
+        </section>
+
 
         <!-- CONTACT -->
         <section class="grid" id="contact">

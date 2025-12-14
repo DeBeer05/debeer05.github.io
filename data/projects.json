@@ -1,26 +1,53 @@
 [
     {
-        "title": "Project 1 — (vul aan)",
-        "description": "Korte beschrijving. Wat was het probleem, jouw rol, en welke tech?",
+        "slug": "smartcarbon",
+        "title": "SmartCarbon",
+        "description": "CO₂-tracking ride registratie platform met dashboard en auth.",
+        "longDescription": "SmartCarbon helpt ritten registreren en CO₂ inzichtelijk maken. Ik werkte aan front-end en API integratie, en heb extra aandacht besteed aan auth en data-validatie.",
         "tags": [
             "Python",
-            "Web"
+            "Web",
+            "API"
+        ],
+        "learnings": [
+            "API ontwerpen en foutafhandeling consistent maken",
+            "Auth flows (sessions/tokens) goed testen",
+            "UI state management en filtering/pagination"
+        ],
+        "stack": [
+            "Python",
+            "Flask/Django",
+            "HTML/CSS/JS"
         ],
         "links": {
-            "repo": "https://github.com/<jouw-username>/<repo>",
-            "demo": "https://<jouw-username>.github.io/<repo>/"
+            "repo": "https://github.com/DeBeer05/REPO_NAAM",
+            "demo": ""
         }
     },
     {
-        "title": "Project 2 — (vul aan)",
-        "description": "Bijv. API, database, auth, UI/UX, testing, etc.",
+        "slug": "portfolio",
+        "title": "Portfolio (GitHub Pages)",
+        "description": "Deze portfolio met dark/light mode, i18n, project detail pages en GitHub API.",
+        "longDescription": "Een snelle statische site op GitHub Pages met routing via hashes en data-driven content.",
         "tags": [
             "JavaScript",
             "HTML",
-            "CSS"
+            "CSS",
+            "GitHub Pages"
+        ],
+        "learnings": [
+            "Hash routing op GitHub Pages",
+            "Data-driven rendering met JSON",
+            "Caching via localStorage voor snellere loads"
+        ],
+        "stack": [
+            "HTML",
+            "CSS",
+            "JavaScript"
         ],
         "links": {
-            "repo": "https://github.com/<jouw-username>/<repo>"
+            "repo": "https://github.com/DeBeer05/DeBeer05.github.io",
+            "demo": "https://DeBeer05.github.io"
         }
     }
 ]

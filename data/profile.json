@@ -2,6 +2,11 @@
     "name": "Berend Romijn",
     "email": "berend2002@gmail.com",
     "linkedin": "https://linkedin.com/in/berend-romijn-92a5a41a5",
+    "github": "https://github.com/DeBeer05",
+    "featuredRepos": [
+        "DeBeer05.github.io",
+        "AoC"
+    ],
     "tagline_nl": "Software Development • HvA",
     "tagline_en": "Software Development • AUAS",
     "educationLine_nl": "HBO Software Developer (Associate degree) — HvA (aug 2024–heden)",
