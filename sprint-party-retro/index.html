@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>🎮 Sprint Party Retro</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="top">
+            <div>
+                <div class="pill">🎲 Sprint Party • 5-sprint Final Lap</div>
+                <h1>Retro Game</h1>
+                <p class="muted">Iedereen speelt mee op eigen laptop. Jij bent Presenter op het grote scherm.</p>
+            </div>
+            <div class="right">
+                <a class="btn" id="presenterLink" href="#">🎤 Presenter</a>
+                <a class="btn" id="playerLink" href="#">🧑‍💻 Player</a>
+            </div>
+        </header>
+
+        <main class="grid">
+            <!-- JOIN / ROLE -->
+            <section class="card" id="joinCard">
+                <h2>Join room</h2>
+
+                <label class="muted small">Room code</label>
+                <input id="roomCode" placeholder="Bijv. RETRO-5SPRINTS" />
+
+                <div class="row">
+                    <div class="grow">
+                        <label class="muted small">Naam</label>
+                        <input id="name" placeholder="Jouw naam" />
+                    </div>
+
+                    <div style="width:160px">
+                        <label class="muted small">Rol</label>
+                        <select id="role">
+                            <option value="player">Player</option>
+                            <option value="presenter">Presenter</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- HOST CODE (alleen voor presenter) -->
+                <div id="hostCodeWrap" class="hidden" style="margin-top:10px">
+                    <label class="muted small">Host code (alleen presenter)</label>
+                    <input id="hostCode" placeholder="Vul host code in…" />
+                    <p class="muted small" style="margin:8px 0 0">
+                        Alleen de host kan presenter zijn. Studenten kunnen dit veld leeg laten.
+                    </p>
+                </div>
+
+                <div class="row" style="margin-top:10px">
+                    <button class="btn primary" id="joinBtn">➡️ Join</button>
+                    <button class="btn warn" id="createRoomBtn">✨ Create room</button>
+                </div>
+
+                <p class="muted small" style="margin-top:10px">
+                    Tip: jij maakt de room aan als Presenter, zet daarna je scherm op het bord.
+                    Studenten openen dezelfde link en joinen als Player.
+                </p>
+
+                <!-- kleine helper voor presenter -->
+                <div class="panel" style="margin-top:12px">
+                    <h3>Presenter flow (kort)</h3>
+                    <div class="muted small">
+                        1) Create room → (je krijgt host code)<br />
+                        2) Studenten joinen als player<br />
+                        3) Start game in Presenter → Next / Power-ups / Coins
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRESENTER -->
+            <section class="card hidden" id="presenterView">
+                <div class="row space">
+                    <h2>🎤 Presenter</h2>
+                    <div class="row">
+                        <span class="badge" id="phaseBadge">—</span>
+                        <button class="btn danger" id="endBtn">⛔ End</button>
+                    </div>
+                </div>
+
+                <div class="board">
+                    <div class="row space">
+                        <div>
+                            <div class="muted small">Room</div>
+                            <div class="mono" id="roomOut">—</div>
+                        </div>
+                        <div>
+                            <div class="muted small">Players</div>
+                            <div class="mono" id="playerCount">—</div>
+                        </div>
+                    </div>
+
+                    <!-- 🎲 GAME BOARD -->
+                    <div class="panel">
+                        <div class="row space">
+                            <h3 style="margin:0">🎲 Board</h3>
+                            <div class="row">
+                                <span class="badge">💰 Coins</span>
+                                <div class="mono" id="coinsTotal">—</div>
+                            </div>
+                        </div>
+                        <div id="board" class="boardgame"></div>
+
+                        <div class="row space" style="margin-top:10px">
+                            <div class="muted small">
+                                Tip: geef coins voor diepgang (voorbeeld + eerlijk zelfinzicht).
+                            </div>
+                            <button class="btn primary" id="giveCoinBtn">💰 Give coin (current player)</button>
+                        </div>
+                    </div>
+
+                    <!-- QBOX -->
+                    <div class="qbox">
+                        <div class="row space">
+                            <div>
+                                <div class="muted small">Aan de beurt</div>
+                                <div class="big" id="turnName">—</div>
+                                <div class="muted small" id="turnMeta">—</div>
+                            </div>
+                            <div class="row">
+                                <span class="tag" id="tag">—</span>
+                                <span class="tag power" id="powerTag">Power-up: —</span>
+                            </div>
+                        </div>
+
+                        <div class="question" id="question">—</div>
+
+                        <div class="row space" style="margin-top:12px">
+                            <div class="row">
+                                <button class="btn" id="rollPowerBtn">🎁 Roll Power-up</button>
+                                <button class="btn" id="revealBtn">👀 Reveal answers</button>
+                            </div>
+                            <div class="row">
+                                <button class="btn warn" id="prevBtn">←</button>
+                                <button class="btn primary" id="nextBtn">Next →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="two">
+                        <div class="panel">
+                            <div class="row space">
+                                <h3 style="margin:0">Live answers (huidige beurt)</h3>
+                                <span class="badge" id="revealState">—</span>
+                            </div>
+                            <div class="list" id="liveAnswers"></div>
+                        </div>
+
+                        <div class="panel">
+                            <h3>All-time highlights</h3>
+                            <div class="list" id="highlights"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRESENTER END SCREEN -->
+            <section class="card hidden" id="endPresenterView">
+                <div class="row space">
+                    <h2>🏆 Finale</h2>
+                    <button class="btn warn" id="backToLobbyBtn">🔁 Back to lobby</button>
+                </div>
+
+                <div class="panel">
+                    <h3>Top 3 Growth Moments</h3>
+                    <div class="list" id="topGrowthList"></div>
+                </div>
+
+                <div class="panel" style="margin-top:12px">
+                    <h3>Scoreboard (Coins)</h3>
+                    <div class="list" id="scoreboard"></div>
+                </div>
+
+                <div class="panel" style="margin-top:12px">
+                    <h3>Export (kopieerbaar)</h3>
+                    <pre id="exportText" class="mono" style="white-space:pre-wrap; margin:0"></pre>
+                    <div class="row" style="margin-top:10px">
+                        <button class="btn primary" id="copyExportBtn">📋 Copy</button>
+                        <button class="btn" id="downloadExportBtn">⬇ Download .txt</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PLAYER -->
+            <section class="card hidden" id="playerView">
+                <div class="row space">
+                    <h2>🧑‍💻 Player</h2>
+                    <span class="badge" id="playerStatus">—</span>
+                </div>
+
+                <div class="qbox">
+                    <div class="row space">
+                        <div>
+                            <div class="muted small">Jij</div>
+                            <div class="big" id="meName">—</div>
+                            <div class="muted small" id="meCoins">💰 Coins: —</div>
+                        </div>
+                        <div class="row">
+                            <span class="tag" id="meTag">—</span>
+                            <span class="tag power" id="mePower">Power-up: —</span>
+                        </div>
+                    </div>
+
+                    <div class="question" id="meQuestion">Wachten op Presenter…</div>
+
+                    <div class="muted small" style="margin-top:12px">Jouw antwoord</div>
+                    <textarea id="answer" placeholder="Typ je reflectie hier…"></textarea>
+
+                    <div class="row space" style="margin-top:12px">
+                        <div class="muted small" id="turnInfo">—</div>
+                        <button class="btn primary" id="sendBtn">✅ Send</button>
+                    </div>
+                </div>
+
+                <div class="panel" style="margin-top:12px">
+                    <h3>Jouw eerdere antwoorden</h3>
+                    <div class="list" id="myHistory"></div>
+                </div>
+            </section>
+
+            <!-- PLAYER END SCREEN -->
+            <section class="card hidden" id="endPlayerView">
+                <h2>🏁 Game over</h2>
+                <p class="muted">Thanks! Bekijk op het bord de Top 3 Growth Moments & de coins.</p>
+
+                <div class="panel">
+                    <h3>Jouw coins</h3>
+                    <div class="mono" id="myFinalCoins">—</div>
+                </div>
+
+                <div class="panel" style="margin-top:12px">
+                    <h3>Jouw highlights</h3>
+                    <div class="list" id="myFinalHighlights"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="muted small foot">
+            Realtime via Firestore • Works on GitHub Pages
+        </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+
+    <script>
+        // UI-only: toon host code veld als je "presenter" kiest
+        const roleSel = document.getElementById("role");
+        const hostWrap = document.getElementById("hostCodeWrap");
+        const sync = () => {
+            if (roleSel.value === "presenter") hostWrap.classList.remove("hidden");
+            else hostWrap.classList.add("hidden");
+        };
+        roleSel.addEventListener("change", sync);
+        sync();
+    </script>
+</body>
+
+</html>
