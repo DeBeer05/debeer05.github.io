@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Project 1 — (vul aan)",
+        "description": "Korte beschrijving. Wat was het probleem, jouw rol, en welke tech?",
+        "tags": [
+            "Python",
+            "Web"
+        ],
+        "links": {
+            "repo": "https://github.com/<jouw-username>/<repo>",
+            "demo": "https://<jouw-username>.github.io/<repo>/"
+        }
+    },
+    {
+        "title": "Project 2 — (vul aan)",
+        "description": "Bijv. API, database, auth, UI/UX, testing, etc.",
+        "tags": [
+            "JavaScript",
+            "HTML",
+            "CSS"
+        ],
+        "links": {
+            "repo": "https://github.com/<jouw-username>/<repo>"
+        }
+    }
+]

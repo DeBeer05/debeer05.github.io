@@ -1,0 +1,68 @@
+{
+    "name": "Berend Romijn",
+    "email": "berend2002@gmail.com",
+    "linkedin": "https://linkedin.com/in/berend-romijn-92a5a41a5",
+    "tagline_nl": "Software Development • HvA",
+    "tagline_en": "Software Development • HvA",
+    "educationLine_nl": "HBO Software Developer (Associate degree) — HvA (aug 2024–heden)",
+    "educationLine_en": "HBO Software Developer (Associate degree) — HvA (Aug 2024–present)",
+    "nowBadges": [
+        "Python",
+        "Web",
+        "Scrum/Teamwork",
+        "GitHub Pages"
+    ],
+    "skills": {
+        "Core": [
+            "Python",
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
+        "Also": [
+            "PHP"
+        ]
+    },
+    "timeline": [
+        {
+            "title_nl": "HBO Software Developer (Associate degree) — Hogeschool van Amsterdam",
+            "title_en": "HBO Software Developer (Associate degree) — Amsterdam University of Applied Sciences",
+            "meta_nl": "aug 2024 – heden",
+            "meta_en": "Aug 2024 – present",
+            "body_nl": "Focus op software development en samenwerken in projecten.",
+            "body_en": "Focused on software development and team projects."
+        },
+        {
+            "title_nl": "MBO Smart ICT Engineer (niveau 4) — Nova College",
+            "title_en": "MBO Smart ICT Engineer (level 4) — Nova College",
+            "meta_nl": "aug 2019 – sep 2022",
+            "meta_en": "Aug 2019 – Sep 2022",
+            "body_nl": "Diploma behaald.",
+            "body_en": "Graduated."
+        },
+        {
+            "title_nl": "LoRa & Gateway Engineer — WirelessWorks.IT (stage/eindstage)",
+            "title_en": "LoRa & Gateway Engineer — WirelessWorks.IT (internship)",
+            "meta_nl": "apr 2022 – sep 2022",
+            "meta_en": "Apr 2022 – Sep 2022",
+            "body_nl": "Technische werkzaamheden rond LoRa en gateways.",
+            "body_en": "Technical work around LoRa and gateways."
+        },
+        {
+            "title_nl": "Pakketbezorger — PostNL",
+            "title_en": "Parcel Delivery — PostNL",
+            "meta_nl": "okt 2024 – feb 2025",
+            "meta_en": "Oct 2024 – Feb 2025",
+            "body_nl": "Parttime werkervaring.",
+            "body_en": "Part-time work experience."
+        },
+        {
+            "title_nl": "Student aan Huis — Student aan huis B.V.",
+            "title_en": "Student at Home — Student aan huis B.V.",
+            "meta_nl": "jan 2025 – heden",
+            "meta_en": "Jan 2025 – present",
+            "body_nl": "Begeleiding/ondersteuning aan huis (parttime).",
+            "body_en": "At-home support/assistance (part-time)."
+        }
+    ]
+}

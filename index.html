@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Berend Romijn — Portfolio</title>
+    <meta name="description"
+        content="Portfolio van Berend Romijn — Software Development (HvA). Projecten, skills, ervaring en contact." />
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Berend Romijn — Portfolio" />
+    <meta property="og:description" content="Projecten, skills, ervaring en contact." />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="manifest" href="assets/manifest.webmanifest" />
+    <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+    <a class="skip" href="#content">Skip to content</a>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo" aria-hidden="true">BR</div>
+            <div>
+                <div class="brand-title">Berend Romijn</div>
+                <div class="brand-sub" data-i18n="tagline">Software Development • HvA</div>
+            </div>
+        </div>
+
+        <nav class="actions">
+            <button class="chip" id="langBtn" type="button" aria-label="Toggle language">NL / EN</button>
+            <button class="chip" id="themeBtn" type="button" aria-label="Toggle theme">🌙 / ☀️</button>
+            <a class="chip primary" href="#contact" data-i18n="ctaContact">Contact</a>
+        </nav>
+    </header>
+
+    <main id="content" class="container">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-card">
+                <p class="pill" data-i18n="pill">Open voor stage / projecten</p>
+                <h1>
+                    <span data-i18n="heroHi">Hi, ik ben</span>
+                    <span class="grad">Berend</span>.
+                </h1>
+                <p class="lead" data-i18n="heroLead">
+                    HBO Software Development (Associate degree) aan de Hogeschool van Amsterdam.
+                    Ik bouw graag slimme, praktische oplossingen met Python en webtechnologie.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="btn" href="#projects" data-i18n="ctaProjects">Bekijk projecten</a>
+                    <button class="btn ghost" id="copyEmailBtn" type="button" data-i18n="ctaCopyEmail">Kopieer
+                        e-mail</button>
+                </div>
+
+                <div class="stats" aria-label="Highlights">
+                    <div class="stat">
+                        <div class="stat-num" id="yearsCoding">—</div>
+                        <div class="stat-label" data-i18n="statYears">jaar ervaring (±)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">Python</div>
+                        <div class="stat-label" data-i18n="statFocus">focus</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">NL / EN</div>
+                        <div class="stat-label" data-i18n="statLang">taal</div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="hero-side">
+                <div class="card">
+                    <h2 data-i18n="quickTitle">Snelkoppelingen</h2>
+                    <div class="quick">
+                        <a class="quick-item" href="#about" data-i18n="navAbout">Over mij</a>
+                        <a class="quick-item" href="#skills" data-i18n="navSkills">Skills</a>
+                        <a class="quick-item" href="#experience" data-i18n="navExperience">Ervaring</a>
+                        <a class="quick-item" href="#projects" data-i18n="navProjects">Projecten</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 data-i18n="nowTitle">Nu</h2>
+                    <p class="muted" id="nowText" data-i18n="nowText">
+                        Student Software Development (HvA) — bouwend aan projecten en portfolio.
+                    </p>
+                    <div class="badges" id="nowBadges"></div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="grid" id="about">
+            <div class="card span-7">
+                <h2 data-i18n="aboutTitle">Over mij</h2>
+                <p class="muted" data-i18n="aboutBody">
+                    Ik werk al lang met computers en vind het leuk om praktische oplossingen te bouwen.
+                    Ik ben leergierig, plan mijn werk graag strak, en werk fijn in een team waar feedback normaal is.
+                </p>
+                <div class="divider"></div>
+                <div class="mini">
+                    <div>
+                        <div class="mini-k" data-i18n="aboutEdu">Opleiding</div>
+                        <div class="mini-v" id="eduLine">—</div>
+                    </div>
+                    <div>
+                        <div class="mini-k" data-i18n="aboutRole">Richting</div>
+                        <div class="mini-v" data-i18n="aboutRoleValue">Software Development</div>
+                    </div>
+                    <div>
+                        <div class="mini-k" data-i18n="aboutLocation">Locatie</div>
+                        <div class="mini-v">Nederland</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card span-5">
+                <h2 data-i18n="linksTitle">Links</h2>
+                <div class="links" id="links"></div>
+                <div class="hint" data-i18n="linksHint">
+                    Voeg GitHub toe zodra je repo’s publiek staan.
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section class="grid" id="skills">
+            <div class="card span-12">
+                <div class="section-head">
+                    <h2 data-i18n="skillsTitle">Skills</h2>
+                    <p class="muted" data-i18n="skillsSub">Selecteer een categorie om te filteren.</p>
+                </div>
+                <div class="filters" id="skillFilters"></div>
+                <div class="chips" id="skillsChips"></div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section class="grid" id="experience">
+            <div class="card span-12">
+                <div class="section-head">
+                    <h2 data-i18n="expTitle">Opleiding & Ervaring</h2>
+                    <p class="muted" data-i18n="expSub">Kort overzicht (pas dit gerust aan).</p>
+                </div>
+                <ol class="timeline" id="timeline"></ol>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="grid" id="projects">
+            <div class="card span-12">
+                <div class="section-head">
+                    <h2 data-i18n="projectsTitle">Projecten</h2>
+                    <p class="muted" data-i18n="projectsSub">
+                        Projecten worden geladen uit <code>data/projects.json</code>.
+                    </p>
+                </div>
+
+                <div class="filters" id="projectFilters"></div>
+                <div class="projects" id="projectsGrid"></div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="grid" id="contact">
+            <div class="card span-7">
+                <h2 data-i18n="contactTitle">Contact</h2>
+                <p class="muted" data-i18n="contactBody">
+                    Stuur me een bericht via e-mail of LinkedIn. (GitHub Pages is statisch, dus geen “echte” backend
+                    form.)
+                </p>
+
+                <div class="contact-actions">
+                    <a class="btn" id="emailLink" href="#" data-i18n="contactEmail">Mail</a>
+                    <a class="btn ghost" id="linkedinLink" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+                </div>
+
+                <div class="divider"></div>
+                <p class="hint" data-i18n="contactHint">
+                    Wil je wél een contactformulier? Gebruik dan Formspree / Getform (werkt prima met Pages).
+                </p>
+            </div>
+
+            <div class="card span-5">
+                <h2 data-i18n="footerTitle">Portfolio</h2>
+                <p class="muted" data-i18n="footerBody">
+                    Gemaakt voor GitHub Pages — snel, simpel, uitbreidbaar.
+                </p>
+                <div class="divider"></div>
+                <p class="small muted">
+                    © <span id="year"></span> <span id="nameInline">Berend Romijn</span>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/app.js"></script>
+</body>
+
+</html>
