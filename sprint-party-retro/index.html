@@ -250,16 +250,26 @@
     <script type="module" src="app.js"></script>
 
     <script>
-        // UI-only: toon host code veld als je "presenter" kiest
-        const roleSel = document.getElementById("role");
-        const hostWrap = document.getElementById("hostCodeWrap");
-        const sync = () => {
-            if (roleSel.value === "presenter") hostWrap.classList.remove("hidden");
-            else hostWrap.classList.add("hidden");
-        };
-        roleSel.addEventListener("change", sync);
-        sync();
+        // Toon host code veld als rol = presenter
+        window.addEventListener("DOMContentLoaded", () => {
+            const roleSel = document.getElementById("role");
+            const hostWrap = document.getElementById("hostCodeWrap");
+
+            if (!roleSel || !hostWrap) {
+                console.warn("role of hostCodeWrap niet gevonden. Check id's in index.html");
+                return;
+            }
+
+            const sync = () => {
+                const isPresenter = roleSel.value === "presenter";
+                hostWrap.classList.toggle("hidden", !isPresenter);
+            };
+
+            roleSel.addEventListener("change", sync);
+            sync();
+        });
     </script>
+
 </body>
 
 </html>
