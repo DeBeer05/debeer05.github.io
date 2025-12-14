@@ -38,7 +38,12 @@ const I18N = {
         contactEmail: "Mail",
         contactHint: "Wil je wél een contactformulier? Gebruik dan Formspree / Getform (werkt prima met Pages).",
         footerTitle: "Portfolio",
-        footerBody: "Gemaakt voor GitHub Pages — snel, simpel, uitbreidbaar."
+        footerBody: "Gemaakt voor GitHub Pages — snel, simpel, uitbreidbaar.",
+        eduTitle: "Opleiding",
+        eduSub: "Mijn opleidingen en certificering.",
+        workTitle: "Ervaring",
+        workSub: "Werkervaring en stages."
+
     },
     en: {
         tagline: "Software Development • AUAS",
@@ -77,7 +82,12 @@ const I18N = {
         contactEmail: "Email",
         contactHint: "Want a form anyway? Use Formspree / Getform (works great with Pages).",
         footerTitle: "Portfolio",
-        footerBody: "Built for GitHub Pages — fast, simple, extensible."
+        footerBody: "Built for GitHub Pages — fast, simple, extensible.",
+        eduTitle: "Education",
+        eduSub: "My education and certifications.",
+        workTitle: "Experience",
+        workSub: "Work experience and internships."
+
     }
 };
 
@@ -173,20 +183,28 @@ async function loadData() {
     renderSkills();
 
     // Timeline
-    const timeline = $("#timeline");
-    timeline.innerHTML = "";
-    (profile.timeline || []).forEach(item => {
-        const li = document.createElement("li");
-        li.className = "t-item";
-        li.innerHTML = `
+    function renderTimeline(list, targetId, lang) {
+        const el = document.querySelector(targetId);
+        if (!el) return;
+        el.innerHTML = "";
+        (list || []).forEach(item => {
+            const li = document.createElement("li");
+            li.className = "t-item";
+            li.innerHTML = `
       <div class="t-top">
         <div class="t-title">${lang === "nl" ? item.title_nl : item.title_en}</div>
         <div class="t-meta">${lang === "nl" ? item.meta_nl : item.meta_en}</div>
       </div>
       <div class="t-body">${lang === "nl" ? item.body_nl : item.body_en}</div>
     `;
-        timeline.appendChild(li);
-    });
+            el.appendChild(li);
+        });
+    }
+
+    // ... in loadData(), nadat je `lang` hebt:
+    renderTimeline(profile.education, "#educationTimeline", lang);
+    renderTimeline(profile.experience, "#workTimeline", lang);
+
 
     // Projects with filters
     const projectFilters = $("#projectFilters");

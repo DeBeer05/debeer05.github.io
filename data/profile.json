@@ -3,9 +3,9 @@
     "email": "berend2002@gmail.com",
     "linkedin": "https://linkedin.com/in/berend-romijn-92a5a41a5",
     "tagline_nl": "Software Development • HvA",
-    "tagline_en": "Software Development • HvA",
+    "tagline_en": "Software Development • AUAS",
     "educationLine_nl": "HBO Software Developer (Associate degree) — HvA (aug 2024–heden)",
-    "educationLine_en": "HBO Software Developer (Associate degree) — HvA (Aug 2024–present)",
+    "educationLine_en": "HBO Software Developer (Associate degree) — AUAS (Aug 2024–present)",
     "nowBadges": [
         "Python",
         "Web",
@@ -17,13 +17,18 @@
             "Python",
             "HTML",
             "CSS",
-            "JavaScript"
+            "JavaScript",
+            "Scrum",
+            "Git"
         ],
         "Also": [
-            "PHP"
+            "PHP",
+            "MySQL",
+            "Django",
+            "Flask"
         ]
     },
-    "timeline": [
+    "education": [
         {
             "title_nl": "HBO Software Developer (Associate degree) — Hogeschool van Amsterdam",
             "title_en": "HBO Software Developer (Associate degree) — Amsterdam University of Applied Sciences",
@@ -39,7 +44,9 @@
             "meta_en": "Aug 2019 – Sep 2022",
             "body_nl": "Diploma behaald.",
             "body_en": "Graduated."
-        },
+        }
+    ],
+    "experience": [
         {
             "title_nl": "LoRa & Gateway Engineer — WirelessWorks.IT (stage/eindstage)",
             "title_en": "LoRa & Gateway Engineer — WirelessWorks.IT (internship)",
@@ -59,8 +66,8 @@
         {
             "title_nl": "Student aan Huis — Student aan huis B.V.",
             "title_en": "Student at Home — Student aan huis B.V.",
-            "meta_nl": "jan 2025 – heden",
-            "meta_en": "Jan 2025 – present",
+            "meta_nl": "jan 2025 – mrt 2025",
+            "meta_en": "Jan 2025 – March 2025",
             "body_nl": "Begeleiding/ondersteuning aan huis (parttime).",
             "body_en": "At-home support/assistance (part-time)."
         }
