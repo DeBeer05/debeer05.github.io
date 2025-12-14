@@ -56,7 +56,7 @@ const I18N = {
 
         contactTitle: "Contact",
         contactBody:
-            "Lijkt het je leuk om even te sparren of samen te werken? Stuur me gerust een bericht via e-mail of LinkedIn. (Deze site draait op GitHub Pages, dus geen ‘echte’ backend-form.)",
+            "Lijkt het je leuk om even te sparren of samen te werken? Stuur me gerust een bericht via e-mail of LinkedIn.",
 
         contactEmail: "Mail",
         contactHint:
