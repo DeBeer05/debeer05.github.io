@@ -1,437 +1,147 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Reflectiekaartjes – Roller</title>
+    <meta charset="UTF-8">
+    <title>🎴 Reflectiekaartje</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
-        :root {
-            --bg: #0b1220;
-            --bg2: #0f1a33;
-            --card: #101a33cc;
-            --border: #2a3966;
-            --text: #f2f5ff;
-            --muted: #c6d0ffcc;
-            --acc: #7cf7c2;
-            --acc2: #7cb5ff;
-            --warn: #ffd47c;
-            --danger: #ff7c9a;
-            --r: 22px;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-            color: var(--text);
-            background:
-                radial-gradient(900px 700px at 15% 10%, #1e2f7a, transparent 60%),
-                radial-gradient(900px 700px at 85% 20%, #0f5a6a, transparent 60%),
-                linear-gradient(180deg, var(--bg), var(--bg2));
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 24px;
-        }
-
-        .wrap {
-            width: min(980px, 100%);
-            display: grid;
-            gap: 16px;
-        }
-
-        header {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: clamp(24px, 3vw, 36px);
-            letter-spacing: .2px;
-        }
-
-        .pill {
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            background: rgba(255, 255, 255, .06);
-            color: var(--muted);
-            font-size: 14px;
-            display: flex;
-            gap: 10px;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--acc);
-            box-shadow: 0 0 18px rgba(124, 247, 194, .6);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1.1fr .9fr;
-            gap: 16px;
-        }
-
-        @media (max-width: 860px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
         }
 
         .card {
-            background: rgba(16, 26, 51, .78);
-            border: 1px solid rgba(42, 57, 102, .9);
-            border-radius: var(--r);
-            box-shadow: 0 20px 70px rgba(0, 0, 0, .35);
-            overflow: hidden;
-        }
-
-        .card-inner {
-            padding: 18px;
-        }
-
-        .roller {
-            min-height: 280px;
-            display: grid;
-            gap: 12px;
-            align-content: start;
-        }
-
-        .big {
-            font-size: clamp(20px, 2.2vw, 28px);
-            margin: 0;
-            line-height: 1.25;
-        }
-
-        .meta {
-            color: var(--muted);
-            font-size: 14px;
+            background: white;
+            color: #0f172a;
+            border-radius: 20px;
+            padding: 40px 30px;
+            min-height: 220px;
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .3);
+            animation: pop 0.4s ease;
         }
 
-        .tag {
-            padding: 6px 10px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, .06);
-            border: 1px solid rgba(255, 255, 255, .12);
+        @keyframes pop {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
-        .actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 6px;
+        .card-title {
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+
+        .card-text {
+            font-size: 1.2rem;
+            line-height: 1.5;
         }
 
         button {
-            cursor: pointer;
+            margin-top: 30px;
+            padding: 14px 24px;
+            font-size: 1.1rem;
             border: none;
-            border-radius: 14px;
-            padding: 12px 14px;
-            font-weight: 700;
-            color: #061023;
-            background: linear-gradient(135deg, var(--acc), var(--acc2));
-            box-shadow: 0 12px 30px rgba(124, 181, 255, .25);
-            transition: transform .12s ease, filter .12s ease, opacity .12s ease;
+            border-radius: 12px;
+            cursor: pointer;
+            background: #22c55e;
+            color: #052e16;
+            font-weight: 600;
         }
 
-        button:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.02);
-        }
-
-        button:active {
-            transform: translateY(0px);
-            filter: brightness(.98);
-        }
-
-        button[disabled] {
-            opacity: .55;
+        button:disabled {
+            background: #64748b;
             cursor: not-allowed;
-            filter: grayscale(.2);
         }
 
-        .ghost {
-            background: rgba(255, 255, 255, .07);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, .14);
-            box-shadow: none;
-        }
-
-        .hint {
-            color: var(--muted);
-            font-size: 14px;
-            margin: 0;
-        }
-
-        .list {
-            display: grid;
-            gap: 10px;
-        }
-
-        .small {
-            font-size: 13px;
-            color: var(--muted);
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .progress {
-            height: 10px;
-            background: rgba(255, 255, 255, .08);
-            border: 1px solid rgba(255, 255, 255, .12);
-            border-radius: 999px;
-            overflow: hidden;
-        }
-
-        .bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--acc), var(--acc2));
-            border-radius: 999px;
-            transition: width .25s ease;
-        }
-
-        /* “roll” animatie */
-        .shake {
-            animation: shake .42s ease-in-out;
-        }
-
-        @keyframes shake {
-            0% {
-                transform: translateY(0) rotate(0);
-            }
-
-            20% {
-                transform: translateY(-2px) rotate(-.6deg);
-            }
-
-            45% {
-                transform: translateY(1px) rotate(.6deg);
-            }
-
-            70% {
-                transform: translateY(-1px) rotate(-.4deg);
-            }
-
-            100% {
-                transform: translateY(0) rotate(0);
-            }
+        .empty {
+            font-size: 1.4rem;
+            opacity: 0.9;
         }
     </style>
 </head>
 
 <body>
-    <main class="wrap">
-        <header>
-            <div>
-                <h1>🎴 Reflectiekaartjes Roller</h1>
-                <p class="hint">Klik op <b>Rol kaartje</b>. Elke kaart kan maar één keer verschijnen.</p>
-            </div>
-            <div class="pill" title="Nog beschikbare kaartjes">
-                <span class="dot"></span>
-                <span><b id="remaining">0</b> over</span>
-            </div>
-        </header>
 
-        <section class="grid">
-            <!-- Roller -->
-            <div class="card">
-                <div class="card-inner roller" id="roller">
-                    <div class="meta">
-                        <span class="tag" id="tag">Klaar</span>
-                        <span class="tag">Geen herhaling</span>
-                    </div>
-                    <p class="big" id="question">Druk op “Rol kaartje” om te starten.</p>
+    <div class="container">
+        <div id="card" class="card">
+            <div class="card-title">🎲 Reflectiekaartje</div>
+            <div class="card-text">Klik op “Rol kaart” om te beginnen</div>
+        </div>
 
-                    <div class="actions">
-                        <button id="rollBtn">🎲 Rol kaartje</button>
-                        <button id="resetBtn" class="ghost" title="Zet alle kaartjes terug">↺ Reset</button>
-                        <button id="copyBtn" class="ghost" title="Kopieer huidige vraag">📋 Kopieer</button>
-                    </div>
-
-                    <div class="list">
-                        <p class="small"><span id="usedCount">0</span> gebruikt • <span id="totalCount">0</span> totaal
-                        </p>
-                        <div class="progress" aria-label="Voortgang">
-                            <div class="bar" id="bar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sidebar info -->
-            <aside class="card">
-                <div class="card-inner">
-                    <h2 style="margin:0 0 10px 0; font-size:18px;">Hoe te gebruiken in je retro</h2>
-                    <p class="small">
-                        Laat iedereen om de beurt een kaart rollen en hardop beantwoorden.
-                        Spreek af: <b>geen discussie</b>, alleen luisteren. Daarna pas clusteren of acties maken.
-                    </p>
-                    <div style="height:12px;"></div>
-                    <h3 style="margin:0 0 8px 0; font-size:16px;">Tips</h3>
-                    <ul class="small" style="margin:0; padding-left:18px;">
-                        <li>Geef 20–30 sec denktijd vóór iemand praat.</li>
-                        <li>Max 45–60 sec per persoon om tempo te houden.</li>
-                        <li>Maak een foto van de top 3 inzichten.</li>
-                    </ul>
-                    <div style="height:12px;"></div>
-                    <p class="small" id="status" aria-live="polite"></p>
-                </div>
-            </aside>
-        </section>
-    </main>
+        <button id="rollBtn">🎴 Rol kaart</button>
+    </div>
 
     <script>
-        // Kaartjes: je kunt deze lijst makkelijk uitbreiden
-        const CARDS = [
-            { tag: "💬 Terugkijken", q: "Wat zou je anders doen als je opnieuw mocht beginnen?" },
-            { tag: "🧠 Leren", q: "Wat is het belangrijkste dat jij hebt geleerd in deze 5 sprints?" },
-            { tag: "👥 Samenwerking", q: "Wat deed dit team beter dan in sprint 1?" },
-            { tag: "⚙️ Vaardigheden", q: "Welke skill heb jij het meest ontwikkeld?" },
-            { tag: "⏰ Tijd", q: "Wat was jullie grootste tijdverspiller en waarom?" },
-            { tag: "🚀 Trots", q: "Waar ben je het meest trots op (team of jezelf)?" },
-            { tag: "🔁 Proces", q: "Wat zou je in het Scrum-proces aanpassen voor een volgend project?" },
-            { tag: "📈 Groei", q: "Waarin ben jij het meest gegroeid dit semester?" },
-            { tag: "🧯 Problemen", q: "Welk probleem kwam steeds terug en hoe pakten jullie dat aan?" },
-            { tag: "🎯 Toekomst", q: "Wat neem je concreet mee naar het volgende semester?" },
-            { tag: "🗣️ Communicatie", q: "Wat ging goed of fout in jullie communicatie?" },
-            { tag: "💡 Advies", q: "Welk advies zou je geven aan een nieuw team dat nu start?" },
+        const cards = [
+            { title: "💬 Terugkijken", text: "Wat zou je anders doen als je opnieuw mocht beginnen?" },
+            { title: "🧠 Leren", text: "Wat is het belangrijkste dat jij hebt geleerd in deze sprints?" },
+            { title: "👥 Samenwerking", text: "Wat deed dit team beter dan in sprint 1?" },
+            { title: "⚙️ Vaardigheden", text: "Welke skill heb jij het meest ontwikkeld?" },
+            { title: "⏰ Tijd", text: "Wat was jullie grootste tijdverspiller?" },
+            { title: "🚀 Trots", text: "Waar ben je het meest trots op?" },
+            { title: "🔁 Proces", text: "Wat zou je aanpassen aan het Scrum-proces?" },
+            { title: "📈 Groei", text: "Waarin ben jij het meest gegroeid dit semester?" },
+            { title: "🧯 Problemen", text: "Welk probleem kwam steeds terug?" },
+            { title: "🎯 Toekomst", text: "Wat neem je concreet mee naar het volgende semester?" },
+            { title: "🗣️ Communicatie", text: "Wat ging goed of fout in jullie communicatie?" },
+            { title: "💡 Advies", text: "Welk advies geef je aan een nieuw team?" }
         ];
 
-        const els = {
-            remaining: document.getElementById("remaining"),
-            usedCount: document.getElementById("usedCount"),
-            totalCount: document.getElementById("totalCount"),
-            bar: document.getElementById("bar"),
-            question: document.getElementById("question"),
-            tag: document.getElementById("tag"),
-            rollBtn: document.getElementById("rollBtn"),
-            resetBtn: document.getElementById("resetBtn"),
-            copyBtn: document.getElementById("copyBtn"),
-            status: document.getElementById("status"),
-            roller: document.getElementById("roller"),
-        };
+        const usedKey = "used_reflectiekaartjes";
+        const used = JSON.parse(localStorage.getItem(usedKey)) || [];
 
-        const STORAGE_KEY = "retro_cards_remaining_v1";
-
-        function shuffle(arr) {
-            // Fisher-Yates
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        function loadPool() {
-            try {
-                const raw = localStorage.getItem(STORAGE_KEY);
-                if (!raw) return null;
-                const parsed = JSON.parse(raw);
-                if (!Array.isArray(parsed)) return null;
-                return parsed;
-            } catch {
-                return null;
-            }
-        }
-
-        function savePool(pool) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(pool));
-        }
-
-        function freshPool() {
-            // we bewaren IDs ipv object refs
-            return shuffle(CARDS.map((_, idx) => idx));
-        }
-
-        let pool = loadPool();
-        if (!pool || pool.some(n => typeof n !== "number") || pool.length > CARDS.length) {
-            pool = freshPool();
-            savePool(pool);
-        }
-
-        function updateUI() {
-            const remaining = pool.length;
-            const used = CARDS.length - remaining;
-
-            els.remaining.textContent = remaining;
-            els.usedCount.textContent = used;
-            els.totalCount.textContent = CARDS.length;
-
-            const pct = (used / CARDS.length) * 100;
-            els.bar.style.width = `${pct}%`;
-
-            if (remaining === 0) {
-                els.rollBtn.disabled = true;
-                els.status.textContent = "✅ Alle kaartjes zijn op. Klik op Reset om opnieuw te starten.";
-            } else {
-                els.rollBtn.disabled = false;
-                els.status.textContent = "Tip: laat de volgende student rollen 👇";
-            }
-        }
+        const cardEl = document.getElementById("card");
+        const btn = document.getElementById("rollBtn");
 
         function rollCard() {
-            if (pool.length === 0) return;
+            const available = cards.filter((_, i) => !used.includes(i));
 
-            // “rol” animatie
-            els.roller.classList.remove("shake");
-            void els.roller.offsetWidth; // reflow
-            els.roller.classList.add("shake");
-
-            // haal random: pool is geshuffled, dus pop is random zonder herhaling
-            const idx = pool.pop();
-            savePool(pool);
-
-            const card = CARDS[idx];
-            els.tag.textContent = card.tag;
-            els.question.textContent = card.q;
-
-            updateUI();
-        }
-
-        async function copyCurrent() {
-            const text = `${els.tag.textContent} — ${els.question.textContent}`;
-            try {
-                await navigator.clipboard.writeText(text);
-                els.status.textContent = "📋 Gekopieerd!";
-                setTimeout(() => updateUI(), 900);
-            } catch {
-                els.status.textContent = "Kon niet kopiëren (browser-permissie).";
-                setTimeout(() => updateUI(), 1200);
+            if (available.length === 0) {
+                cardEl.innerHTML = `<div class="empty">🎉 Alle kaartjes zijn geweest!</div>`;
+                btn.disabled = true;
+                return;
             }
+
+            const index = Math.floor(Math.random() * available.length);
+            const card = available[index];
+            const originalIndex = cards.indexOf(card);
+
+            used.push(originalIndex);
+            localStorage.setItem(usedKey, JSON.stringify(used));
+
+            cardEl.innerHTML = `
+            <div class="card-title">${card.title}</div>
+            <div class="card-text">${card.text}</div>
+        `;
         }
 
-        function resetAll() {
-            pool = freshPool();
-            savePool(pool);
-            els.tag.textContent = "Klaar";
-            els.question.textContent = "Druk op “Rol kaartje” om te starten.";
-            updateUI();
-        }
-
-        els.rollBtn.addEventListener("click", rollCard);
-        els.resetBtn.addEventListener("click", resetAll);
-        els.copyBtn.addEventListener("click", copyCurrent);
-
-        // init
-        updateUI();
+        btn.addEventListener("click", rollCard);
     </script>
+
 </body>
 
 </html>
