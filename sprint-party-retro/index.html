@@ -2,146 +2,143 @@
 <html lang="nl">
 
 <head>
-    <meta charset="UTF-8">
-    <title>🎴 Reflectiekaartje</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <title>🎲 Reflectiekaart Roller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: white;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #6366f1, #22c55e);
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            color: #0f172a;
         }
 
-        .container {
+        .app {
             text-align: center;
-            max-width: 600px;
+            max-width: 520px;
             width: 100%;
             padding: 20px;
         }
 
+        h1 {
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        button {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .card {
             background: white;
-            color: #0f172a;
             border-radius: 20px;
-            padding: 40px 30px;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, .3);
+            padding: 28px;
+            margin-top: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
             animation: pop 0.4s ease;
         }
 
         @keyframes pop {
-            from {
-                transform: scale(0.9);
+            0% {
+                transform: scale(0.8);
                 opacity: 0;
             }
 
-            to {
+            100% {
                 transform: scale(1);
                 opacity: 1;
             }
         }
 
-        .card-title {
-            font-size: 1.6rem;
-            margin-bottom: 16px;
+        .name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
-        .card-text {
-            font-size: 1.2rem;
-            line-height: 1.5;
-        }
-
-        button {
-            margin-top: 30px;
-            padding: 14px 24px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            background: #22c55e;
-            color: #052e16;
-            font-weight: 600;
-        }
-
-        button:disabled {
-            background: #64748b;
-            cursor: not-allowed;
+        .question {
+            font-size: 18px;
         }
 
         .empty {
-            font-size: 1.4rem;
-            opacity: 0.9;
+            color: white;
+            font-size: 18px;
+            margin-top: 20px;
         }
     </style>
 </head>
 
 <body>
+    <div class="app">
+        <h1>🎲 Reflectiekaart</h1>
 
-    <div class="container">
-        <div id="card" class="card">
-            <div class="card-title">🎲 Reflectiekaartje</div>
-            <div class="card-text">Klik op “Rol kaart” om te beginnen</div>
-        </div>
+        <button id="rollBtn">Rol een kaart</button>
 
-        <button id="rollBtn">🎴 Rol kaart</button>
+        <div id="result"></div>
     </div>
 
     <script>
-        const cards = [
-            { title: "💬 Terugkijken", text: "Wat zou je anders doen als je opnieuw mocht beginnen?" },
-            { title: "🧠 Leren", text: "Wat is het belangrijkste dat jij hebt geleerd in deze sprints?" },
-            { title: "👥 Samenwerking", text: "Wat deed dit team beter dan in sprint 1?" },
-            { title: "⚙️ Vaardigheden", text: "Welke skill heb jij het meest ontwikkeld?" },
-            { title: "⏰ Tijd", text: "Wat was jullie grootste tijdverspiller?" },
-            { title: "🚀 Trots", text: "Waar ben je het meest trots op?" },
-            { title: "🔁 Proces", text: "Wat zou je aanpassen aan het Scrum-proces?" },
-            { title: "📈 Groei", text: "Waarin ben jij het meest gegroeid dit semester?" },
-            { title: "🧯 Problemen", text: "Welk probleem kwam steeds terug?" },
-            { title: "🎯 Toekomst", text: "Wat neem je concreet mee naar het volgende semester?" },
-            { title: "🗣️ Communicatie", text: "Wat ging goed of fout in jullie communicatie?" },
-            { title: "💡 Advies", text: "Welk advies geef je aan een nieuw team?" }
+        const names = [
+            "Thijmen",
+            "Ulrich",
+            "Omar",
+            "Niklas",
+            "Billal",
+            "Joris"
         ];
 
-        const usedKey = "used_reflectiekaartjes";
-        const used = JSON.parse(localStorage.getItem(usedKey)) || [];
+        let cards = [
+            "Wat zou je anders doen als je opnieuw mocht beginnen?",
+            "Wat is het belangrijkste dat je hebt geleerd dit semester?",
+            "Waar ben je het meest trots op binnen dit team?",
+            "Wat deed dit team beter dan in sprint 1?",
+            "Wat was jullie grootste valkuil?",
+            "Welke skill heb jij het meest ontwikkeld?",
+            "Wanneer ging het samenwerken ineens beter of slechter?",
+            "Wat neem je mee naar een volgend project?",
+            "Wat was een moment waarop je echt moest doorzetten?",
+            "Welk advies zou je geven aan een nieuw team?"
+        ];
 
-        const cardEl = document.getElementById("card");
-        const btn = document.getElementById("rollBtn");
+        const result = document.getElementById("result");
+        const rollBtn = document.getElementById("rollBtn");
 
-        function rollCard() {
-            const available = cards.filter((_, i) => !used.includes(i));
-
-            if (available.length === 0) {
-                cardEl.innerHTML = `<div class="empty">🎉 Alle kaartjes zijn geweest!</div>`;
-                btn.disabled = true;
+        rollBtn.addEventListener("click", () => {
+            if (cards.length === 0) {
+                result.innerHTML = `<div class="empty">🎉 Alle kaartjes zijn gebruikt!</div>`;
+                rollBtn.disabled = true;
                 return;
             }
 
-            const index = Math.floor(Math.random() * available.length);
-            const card = available[index];
-            const originalIndex = cards.indexOf(card);
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const cardIndex = Math.floor(Math.random() * cards.length);
+            const question = cards.splice(cardIndex, 1)[0];
 
-            used.push(originalIndex);
-            localStorage.setItem(usedKey, JSON.stringify(used));
-
-            cardEl.innerHTML = `
-            <div class="card-title">${card.title}</div>
-            <div class="card-text">${card.text}</div>
-        `;
-        }
-
-        btn.addEventListener("click", rollCard);
+            result.innerHTML = `
+        <div class="card">
+          <div class="name">👤 ${randomName}</div>
+          <div class="question">💬 ${question}</div>
+        </div>
+      `;
+        });
     </script>
-
 </body>
 
 </html>
