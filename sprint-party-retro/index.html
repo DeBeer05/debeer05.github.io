@@ -3,273 +3,435 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>🎮 Sprint Party Retro</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reflectiekaartjes – Roller</title>
+    <style>
+        :root {
+            --bg: #0b1220;
+            --bg2: #0f1a33;
+            --card: #101a33cc;
+            --border: #2a3966;
+            --text: #f2f5ff;
+            --muted: #c6d0ffcc;
+            --acc: #7cf7c2;
+            --acc2: #7cb5ff;
+            --warn: #ffd47c;
+            --danger: #ff7c9a;
+            --r: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(900px 700px at 15% 10%, #1e2f7a, transparent 60%),
+                radial-gradient(900px 700px at 85% 20%, #0f5a6a, transparent 60%),
+                linear-gradient(180deg, var(--bg), var(--bg2));
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .wrap {
+            width: min(980px, 100%);
+            display: grid;
+            gap: 16px;
+        }
+
+        header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(24px, 3vw, 36px);
+            letter-spacing: .2px;
+        }
+
+        .pill {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .06);
+            color: var(--muted);
+            font-size: 14px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--acc);
+            box-shadow: 0 0 18px rgba(124, 247, 194, .6);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 860px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(16, 26, 51, .78);
+            border: 1px solid rgba(42, 57, 102, .9);
+            border-radius: var(--r);
+            box-shadow: 0 20px 70px rgba(0, 0, 0, .35);
+            overflow: hidden;
+        }
+
+        .card-inner {
+            padding: 18px;
+        }
+
+        .roller {
+            min-height: 280px;
+            display: grid;
+            gap: 12px;
+            align-content: start;
+        }
+
+        .big {
+            font-size: clamp(20px, 2.2vw, 28px);
+            margin: 0;
+            line-height: 1.25;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 14px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .tag {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .12);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-weight: 700;
+            color: #061023;
+            background: linear-gradient(135deg, var(--acc), var(--acc2));
+            box-shadow: 0 12px 30px rgba(124, 181, 255, .25);
+            transition: transform .12s ease, filter .12s ease, opacity .12s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.02);
+        }
+
+        button:active {
+            transform: translateY(0px);
+            filter: brightness(.98);
+        }
+
+        button[disabled] {
+            opacity: .55;
+            cursor: not-allowed;
+            filter: grayscale(.2);
+        }
+
+        .ghost {
+            background: rgba(255, 255, 255, .07);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, .14);
+            box-shadow: none;
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .small {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .progress {
+            height: 10px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--acc), var(--acc2));
+            border-radius: 999px;
+            transition: width .25s ease;
+        }
+
+        /* “roll” animatie */
+        .shake {
+            animation: shake .42s ease-in-out;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+
+            20% {
+                transform: translateY(-2px) rotate(-.6deg);
+            }
+
+            45% {
+                transform: translateY(1px) rotate(.6deg);
+            }
+
+            70% {
+                transform: translateY(-1px) rotate(-.4deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="wrap">
-        <header class="top">
+    <main class="wrap">
+        <header>
             <div>
-                <div class="pill">🎲 Sprint Party • 5-sprint Final Lap</div>
-                <h1>Retro Game</h1>
-                <p class="muted">Iedereen speelt mee op eigen laptop. Jij bent Presenter op het grote scherm.</p>
+                <h1>🎴 Reflectiekaartjes Roller</h1>
+                <p class="hint">Klik op <b>Rol kaartje</b>. Elke kaart kan maar één keer verschijnen.</p>
             </div>
-            <div class="right">
-                <a class="btn" id="presenterLink" href="#">🎤 Presenter</a>
-                <a class="btn" id="playerLink" href="#">🧑‍💻 Player</a>
+            <div class="pill" title="Nog beschikbare kaartjes">
+                <span class="dot"></span>
+                <span><b id="remaining">0</b> over</span>
             </div>
         </header>
 
-        <main class="grid">
-            <!-- JOIN / ROLE -->
-            <section class="card" id="joinCard">
-                <h2>Join room</h2>
+        <section class="grid">
+            <!-- Roller -->
+            <div class="card">
+                <div class="card-inner roller" id="roller">
+                    <div class="meta">
+                        <span class="tag" id="tag">Klaar</span>
+                        <span class="tag">Geen herhaling</span>
+                    </div>
+                    <p class="big" id="question">Druk op “Rol kaartje” om te starten.</p>
 
-                <label class="muted small">Room code</label>
-                <input id="roomCode" placeholder="Bijv. RETRO-5SPRINTS" />
-
-                <div class="row">
-                    <div class="grow">
-                        <label class="muted small">Naam</label>
-                        <input id="name" placeholder="Jouw naam" />
+                    <div class="actions">
+                        <button id="rollBtn">🎲 Rol kaartje</button>
+                        <button id="resetBtn" class="ghost" title="Zet alle kaartjes terug">↺ Reset</button>
+                        <button id="copyBtn" class="ghost" title="Kopieer huidige vraag">📋 Kopieer</button>
                     </div>
 
-                    <div style="width:160px">
-                        <label class="muted small">Rol</label>
-                        <select id="role">
-                            <option value="player">Player</option>
-                            <option value="presenter">Presenter</option>
-                        </select>
+                    <div class="list">
+                        <p class="small"><span id="usedCount">0</span> gebruikt • <span id="totalCount">0</span> totaal
+                        </p>
+                        <div class="progress" aria-label="Voortgang">
+                            <div class="bar" id="bar"></div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- HOST CODE (alleen voor presenter) -->
-                <div id="hostCodeWrap" class="hidden" style="margin-top:10px">
-                    <label class="muted small">Host code (alleen presenter)</label>
-                    <input id="hostCode" placeholder="Vul host code in…" />
-                    <p class="muted small" style="margin:8px 0 0">
-                        Alleen de host kan presenter zijn. Studenten kunnen dit veld leeg laten.
+            <!-- Sidebar info -->
+            <aside class="card">
+                <div class="card-inner">
+                    <h2 style="margin:0 0 10px 0; font-size:18px;">Hoe te gebruiken in je retro</h2>
+                    <p class="small">
+                        Laat iedereen om de beurt een kaart rollen en hardop beantwoorden.
+                        Spreek af: <b>geen discussie</b>, alleen luisteren. Daarna pas clusteren of acties maken.
                     </p>
+                    <div style="height:12px;"></div>
+                    <h3 style="margin:0 0 8px 0; font-size:16px;">Tips</h3>
+                    <ul class="small" style="margin:0; padding-left:18px;">
+                        <li>Geef 20–30 sec denktijd vóór iemand praat.</li>
+                        <li>Max 45–60 sec per persoon om tempo te houden.</li>
+                        <li>Maak een foto van de top 3 inzichten.</li>
+                    </ul>
+                    <div style="height:12px;"></div>
+                    <p class="small" id="status" aria-live="polite"></p>
                 </div>
-
-                <div class="row" style="margin-top:10px">
-                    <button class="btn primary" id="joinBtn">➡️ Join</button>
-                    <button class="btn warn" id="createRoomBtn">✨ Create room</button>
-                </div>
-
-                <p class="muted small" style="margin-top:10px">
-                    Tip: jij maakt de room aan als Presenter, zet daarna je scherm op het bord.
-                    Studenten openen dezelfde link en joinen als Player.
-                </p>
-
-                <!-- kleine helper voor presenter -->
-                <div class="panel" style="margin-top:12px">
-                    <h3>Presenter flow (kort)</h3>
-                    <div class="muted small">
-                        1) Create room → (je krijgt host code)<br />
-                        2) Studenten joinen als player<br />
-                        3) Start game in Presenter → Next / Power-ups / Coins
-                    </div>
-                </div>
-            </section>
-
-            <!-- PRESENTER -->
-            <section class="card hidden" id="presenterView">
-                <div class="row space">
-                    <h2>🎤 Presenter</h2>
-                    <div class="row">
-                        <span class="badge" id="phaseBadge">—</span>
-                        <button class="btn danger" id="endBtn">⛔ End</button>
-                    </div>
-                </div>
-
-                <div class="board">
-                    <div class="row space">
-                        <div>
-                            <div class="muted small">Room</div>
-                            <div class="mono" id="roomOut">—</div>
-                        </div>
-                        <div>
-                            <div class="muted small">Players</div>
-                            <div class="mono" id="playerCount">—</div>
-                        </div>
-                    </div>
-
-                    <!-- 🎲 GAME BOARD -->
-                    <div class="panel">
-                        <div class="row space">
-                            <h3 style="margin:0">🎲 Board</h3>
-                            <div class="row">
-                                <span class="badge">💰 Coins</span>
-                                <div class="mono" id="coinsTotal">—</div>
-                            </div>
-                        </div>
-                        <div id="board" class="boardgame"></div>
-
-                        <div class="row space" style="margin-top:10px">
-                            <div class="muted small">
-                                Tip: geef coins voor diepgang (voorbeeld + eerlijk zelfinzicht).
-                            </div>
-                            <button class="btn primary" id="giveCoinBtn">💰 Give coin (current player)</button>
-                        </div>
-                    </div>
-
-                    <!-- QBOX -->
-                    <div class="qbox">
-                        <div class="row space">
-                            <div>
-                                <div class="muted small">Aan de beurt</div>
-                                <div class="big" id="turnName">—</div>
-                                <div class="muted small" id="turnMeta">—</div>
-                            </div>
-                            <div class="row">
-                                <span class="tag" id="tag">—</span>
-                                <span class="tag power" id="powerTag">Power-up: —</span>
-                            </div>
-                        </div>
-
-                        <div class="question" id="question">—</div>
-
-                        <div class="row space" style="margin-top:12px">
-                            <div class="row">
-                                <button class="btn" id="rollPowerBtn">🎁 Roll Power-up</button>
-                                <button class="btn" id="revealBtn">👀 Reveal answers</button>
-                            </div>
-                            <div class="row">
-                                <button class="btn warn" id="prevBtn">←</button>
-                                <button class="btn primary" id="nextBtn">Next →</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="two">
-                        <div class="panel">
-                            <div class="row space">
-                                <h3 style="margin:0">Live answers (huidige beurt)</h3>
-                                <span class="badge" id="revealState">—</span>
-                            </div>
-                            <div class="list" id="liveAnswers"></div>
-                        </div>
-
-                        <div class="panel">
-                            <h3>All-time highlights</h3>
-                            <div class="list" id="highlights"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PRESENTER END SCREEN -->
-            <section class="card hidden" id="endPresenterView">
-                <div class="row space">
-                    <h2>🏆 Finale</h2>
-                    <button class="btn warn" id="backToLobbyBtn">🔁 Back to lobby</button>
-                </div>
-
-                <div class="panel">
-                    <h3>Top 3 Growth Moments</h3>
-                    <div class="list" id="topGrowthList"></div>
-                </div>
-
-                <div class="panel" style="margin-top:12px">
-                    <h3>Scoreboard (Coins)</h3>
-                    <div class="list" id="scoreboard"></div>
-                </div>
-
-                <div class="panel" style="margin-top:12px">
-                    <h3>Export (kopieerbaar)</h3>
-                    <pre id="exportText" class="mono" style="white-space:pre-wrap; margin:0"></pre>
-                    <div class="row" style="margin-top:10px">
-                        <button class="btn primary" id="copyExportBtn">📋 Copy</button>
-                        <button class="btn" id="downloadExportBtn">⬇ Download .txt</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PLAYER -->
-            <section class="card hidden" id="playerView">
-                <div class="row space">
-                    <h2>🧑‍💻 Player</h2>
-                    <span class="badge" id="playerStatus">—</span>
-                </div>
-
-                <div class="qbox">
-                    <div class="row space">
-                        <div>
-                            <div class="muted small">Jij</div>
-                            <div class="big" id="meName">—</div>
-                            <div class="muted small" id="meCoins">💰 Coins: —</div>
-                        </div>
-                        <div class="row">
-                            <span class="tag" id="meTag">—</span>
-                            <span class="tag power" id="mePower">Power-up: —</span>
-                        </div>
-                    </div>
-
-                    <div class="question" id="meQuestion">Wachten op Presenter…</div>
-
-                    <div class="muted small" style="margin-top:12px">Jouw antwoord</div>
-                    <textarea id="answer" placeholder="Typ je reflectie hier…"></textarea>
-
-                    <div class="row space" style="margin-top:12px">
-                        <div class="muted small" id="turnInfo">—</div>
-                        <button class="btn primary" id="sendBtn">✅ Send</button>
-                    </div>
-                </div>
-
-                <div class="panel" style="margin-top:12px">
-                    <h3>Jouw eerdere antwoorden</h3>
-                    <div class="list" id="myHistory"></div>
-                </div>
-            </section>
-
-            <!-- PLAYER END SCREEN -->
-            <section class="card hidden" id="endPlayerView">
-                <h2>🏁 Game over</h2>
-                <p class="muted">Thanks! Bekijk op het bord de Top 3 Growth Moments & de coins.</p>
-
-                <div class="panel">
-                    <h3>Jouw coins</h3>
-                    <div class="mono" id="myFinalCoins">—</div>
-                </div>
-
-                <div class="panel" style="margin-top:12px">
-                    <h3>Jouw highlights</h3>
-                    <div class="list" id="myFinalHighlights"></div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="muted small foot">
-            Realtime via Firestore • Works on GitHub Pages
-        </footer>
-    </div>
-
-    <script type="module" src="app.js"></script>
+            </aside>
+        </section>
+    </main>
 
     <script>
-        // Toon host code veld als rol = presenter
-        window.addEventListener("DOMContentLoaded", () => {
-            const roleSel = document.getElementById("role");
-            const hostWrap = document.getElementById("hostCodeWrap");
+        // Kaartjes: je kunt deze lijst makkelijk uitbreiden
+        const CARDS = [
+            { tag: "💬 Terugkijken", q: "Wat zou je anders doen als je opnieuw mocht beginnen?" },
+            { tag: "🧠 Leren", q: "Wat is het belangrijkste dat jij hebt geleerd in deze 5 sprints?" },
+            { tag: "👥 Samenwerking", q: "Wat deed dit team beter dan in sprint 1?" },
+            { tag: "⚙️ Vaardigheden", q: "Welke skill heb jij het meest ontwikkeld?" },
+            { tag: "⏰ Tijd", q: "Wat was jullie grootste tijdverspiller en waarom?" },
+            { tag: "🚀 Trots", q: "Waar ben je het meest trots op (team of jezelf)?" },
+            { tag: "🔁 Proces", q: "Wat zou je in het Scrum-proces aanpassen voor een volgend project?" },
+            { tag: "📈 Groei", q: "Waarin ben jij het meest gegroeid dit semester?" },
+            { tag: "🧯 Problemen", q: "Welk probleem kwam steeds terug en hoe pakten jullie dat aan?" },
+            { tag: "🎯 Toekomst", q: "Wat neem je concreet mee naar het volgende semester?" },
+            { tag: "🗣️ Communicatie", q: "Wat ging goed of fout in jullie communicatie?" },
+            { tag: "💡 Advies", q: "Welk advies zou je geven aan een nieuw team dat nu start?" },
+        ];
 
-            if (!roleSel || !hostWrap) {
-                console.warn("role of hostCodeWrap niet gevonden. Check id's in index.html");
-                return;
+        const els = {
+            remaining: document.getElementById("remaining"),
+            usedCount: document.getElementById("usedCount"),
+            totalCount: document.getElementById("totalCount"),
+            bar: document.getElementById("bar"),
+            question: document.getElementById("question"),
+            tag: document.getElementById("tag"),
+            rollBtn: document.getElementById("rollBtn"),
+            resetBtn: document.getElementById("resetBtn"),
+            copyBtn: document.getElementById("copyBtn"),
+            status: document.getElementById("status"),
+            roller: document.getElementById("roller"),
+        };
+
+        const STORAGE_KEY = "retro_cards_remaining_v1";
+
+        function shuffle(arr) {
+            // Fisher-Yates
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
             }
+            return arr;
+        }
 
-            const sync = () => {
-                const isPresenter = roleSel.value === "presenter";
-                hostWrap.classList.toggle("hidden", !isPresenter);
-            };
+        function loadPool() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (!Array.isArray(parsed)) return null;
+                return parsed;
+            } catch {
+                return null;
+            }
+        }
 
-            roleSel.addEventListener("change", sync);
-            sync();
-        });
+        function savePool(pool) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(pool));
+        }
+
+        function freshPool() {
+            // we bewaren IDs ipv object refs
+            return shuffle(CARDS.map((_, idx) => idx));
+        }
+
+        let pool = loadPool();
+        if (!pool || pool.some(n => typeof n !== "number") || pool.length > CARDS.length) {
+            pool = freshPool();
+            savePool(pool);
+        }
+
+        function updateUI() {
+            const remaining = pool.length;
+            const used = CARDS.length - remaining;
+
+            els.remaining.textContent = remaining;
+            els.usedCount.textContent = used;
+            els.totalCount.textContent = CARDS.length;
+
+            const pct = (used / CARDS.length) * 100;
+            els.bar.style.width = `${pct}%`;
+
+            if (remaining === 0) {
+                els.rollBtn.disabled = true;
+                els.status.textContent = "✅ Alle kaartjes zijn op. Klik op Reset om opnieuw te starten.";
+            } else {
+                els.rollBtn.disabled = false;
+                els.status.textContent = "Tip: laat de volgende student rollen 👇";
+            }
+        }
+
+        function rollCard() {
+            if (pool.length === 0) return;
+
+            // “rol” animatie
+            els.roller.classList.remove("shake");
+            void els.roller.offsetWidth; // reflow
+            els.roller.classList.add("shake");
+
+            // haal random: pool is geshuffled, dus pop is random zonder herhaling
+            const idx = pool.pop();
+            savePool(pool);
+
+            const card = CARDS[idx];
+            els.tag.textContent = card.tag;
+            els.question.textContent = card.q;
+
+            updateUI();
+        }
+
+        async function copyCurrent() {
+            const text = `${els.tag.textContent} — ${els.question.textContent}`;
+            try {
+                await navigator.clipboard.writeText(text);
+                els.status.textContent = "📋 Gekopieerd!";
+                setTimeout(() => updateUI(), 900);
+            } catch {
+                els.status.textContent = "Kon niet kopiëren (browser-permissie).";
+                setTimeout(() => updateUI(), 1200);
+            }
+        }
+
+        function resetAll() {
+            pool = freshPool();
+            savePool(pool);
+            els.tag.textContent = "Klaar";
+            els.question.textContent = "Druk op “Rol kaartje” om te starten.";
+            updateUI();
+        }
+
+        els.rollBtn.addEventListener("click", rollCard);
+        els.resetBtn.addEventListener("click", resetAll);
+        els.copyBtn.addEventListener("click", copyCurrent);
+
+        // init
+        updateUI();
     </script>
-
 </body>
 
 </html>
