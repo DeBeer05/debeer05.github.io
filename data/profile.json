@@ -10,8 +10,8 @@
     ],
     "tagline_nl": "Software Development • HvA",
     "tagline_en": "Software Development • AUAS",
-    "educationLine_nl": "HBO Software Developer (Associate degree) — HvA (aug 2024–heden)",
-    "educationLine_en": "HBO Software Developer (Associate degree) — AUAS (Aug 2024–present)",
+    "educationLine_nl": "HBO Software Developer (Associate degree) — HvA (aug 2024–Juni 2026)",
+    "educationLine_en": "HBO Software Developer (Associate degree) — AUAS (Aug 2024–Jun 2026)",
     "nowBadges": [
         "Python",
         "Web",
@@ -56,8 +56,8 @@
         {
             "title_nl": "Stage — WirelessWorks",
             "title_en": "Internship — WirelessWorks",
-            "meta_nl": "apr 2026 – heden",
-            "meta_en": "Apr 2026 – present",
+            "meta_nl": "apr 2026 – Juni 2026",
+            "meta_en": "Apr 2026 – Jun 2026",
             "body_nl": "Op deze stage pas ik mijn geleerde kennis van het HVA toe in de praktijk. De opdracht die ik kreeg was om hun bestaande \"BLE Gateway Scan\" te verbeteren. Op dit moment maken ze gebruik van Twitch om vanaf een laptop te livestreamen, om het zo op hun sit te zetten. Mijn taak is het om te zorgen dat dir ptoffesioneler gaat en dat we twitch ertussen uit kunnen halen.",
             "body_en": "In this internship, I apply my knowledge from the AUAS in practice. The task I received was to improve their existing \"BLE Gateway Scan.\" Currently, they use Twitch to livestream from a laptop to display it on their site. My task is to make this process more professional and remove the need for Twitch."
         },
