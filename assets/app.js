@@ -9,7 +9,7 @@ const I18N = {
         pill: "Open voor stage / projecten",
         heroHi: "Hi, ik ben",
         heroLead:
-            "Ik studeer Software Development aan de Hogeschool van Amsterdam en ik word echt blij van bouwen aan dingen die je meteen kunt gebruiken. Of het nou een webapp, API of slim script is — ik duik erin tot het strak werkt.",
+            "Ik studeerde Software Development aan de Hogeschool van Amsterdam en ik word echt blij van bouwen aan dingen die je meteen kunt gebruiken. Of het nou een webapp, API of slim script is — ik duik erin tot het strak werkt.",
 
         ctaProjects: "Bekijk projecten",
         ctaCopyEmail: "Kopieer e-mail",
